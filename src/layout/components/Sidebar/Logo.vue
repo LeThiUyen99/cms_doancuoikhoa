@@ -24,7 +24,7 @@ export default {
   },
   data() {
     return {
-      title: 'CMS SHOP',
+      title: 'CMS TRAVEL',
       logo: logoImage
     }
   },

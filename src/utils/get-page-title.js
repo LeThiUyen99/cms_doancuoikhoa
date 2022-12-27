@@ -1,6 +1,6 @@
 import defaultSettings from '@/settings'
 
-const title = defaultSettings.title || 'CMS SHOP'
+const title = defaultSettings.title || 'CMS TRAVEL'
 
 export default function getPageTitle(pageTitle) {
   if (pageTitle) {

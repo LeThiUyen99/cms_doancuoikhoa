@@ -1,5 +1,5 @@
-import { login, getMenu } from '@/api/user'
-import { getToken, setToken, removeToken, setAcountInfo } from '@/utils/auth'
+import { login } from '@/api/user'
+import { getToken, setToken, removeToken } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 import md5 from 'js-md5'
 
@@ -50,33 +50,33 @@ const actions = {
     })
   },
   getInfo({ commit, state }) {
-    return new Promise((resolve, reject) => {
-      getMenu().then(response => {
-        const arrayRoles = []
-        if (response.error === 0) {
-          const menus = response.menu
-          // console.log('........................menu : ', JSON.stringify(menus))
-          const account = response.account
-          commit('SET_NAME', account.name)
-          commit('SET_AVATAR', 'https://s3.kstorage.vn/public/default-user.png')
-          commit('SET_INTRODUCTION', account)
-          commit('SET_ACCOUNT_ID', account.id)
-          setAcountInfo(account)
-          menus.map(menu => {
-            const stringPath = menu.path.replace('/', '')
-            arrayRoles.push(stringPath)
-          })
-        }
-        const data = {
-          roles: arrayRoles
-        }
-        const { roles } = data
-        commit('SET_ROLES', roles)
-        resolve(data)
-      }).catch(error => {
-        reject(error)
-      })
-    })
+    // return new Promise((resolve, reject) => {
+    //   getMenu().then(response => {
+    //     const arrayRoles = []
+    //     // if (response.error === 0) {
+    //     //   const menus = response.menu
+    //     //   // console.log('........................menu : ', JSON.stringify(menus))
+    //     //   const account = response.account
+    //     //   commit('SET_NAME', account.name)
+    //     //   commit('SET_AVATAR', 'https://s3.kstorage.vn/public/default-user.png')
+    //     //   commit('SET_INTRODUCTION', account)
+    //     //   commit('SET_ACCOUNT_ID', account.id)
+    //     //   setAcountInfo(account)
+    //     //   menus.map(menu => {
+    //     //     const stringPath = menu.path.replace('/', '')
+    //     //     arrayRoles.push(stringPath)
+    //     //   })
+    //     // }
+    //     const data = {
+    //       roles: arrayRoles
+    //     }
+    //     const { roles } = data
+    //     commit('SET_ROLES', roles)
+    //     resolve(data)
+    //   }).catch(error => {
+    //     reject(error)
+    //   })
+    // })
   },
   // user logout
   logout({ commit, state, dispatch }) {

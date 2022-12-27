@@ -77,8 +77,8 @@
   </div>
 </template>
 <script>
-import AccountResource from '@/api/account'
-const accountResource = new AccountResource()
+import AdminResource from '@/api/admin'
+const adminResource = new AdminResource()
 import md5 from 'js-md5'
 import i18n from '@/lang/i18n'
 import LangSelect from '@/components/LangSelect'
@@ -153,7 +153,7 @@ export default {
     },
     onCreateAccout() {
       if (!this.isValidate()) return
-      accountResource.storeAccount({ name: this.name, username: this.email, password: md5(this.password), phone: this.phone, email: this.email, active: 1 }).then(response => {
+      adminResource.storeAccount({ name: this.name, username: this.email, password: md5(this.password), phone: this.phone, email: this.email, active: 1 }).then(response => {
         const { error, msg } = response
         if (error === 0) {
           this.$message.success(msg || i18n.t('register_success'))

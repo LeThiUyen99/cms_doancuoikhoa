@@ -561,5 +561,14 @@
   "Search_by_VGA_code": "Search by VGA code",
   "Search_by_id": "Search by id",
   "Search_by_bill_code": "Search by waybill code",
-  "Search_by_phone_number": "Search by phone number"
+  "Search_by_phone_number": "Search by phone number",
+  "manage_tour": "Manage tour",
+  "add_tour": "Add tour",
+  "name_tour": "Name tour",
+  "vali_cate": "Please enter a category name",
+  "msg_cate": "Added category successfully",
+  "sold_number": "Sold quantity",
+  "guest_number": "Maximum number of purchases",
+  "slug": "Path",
+  "country": "Country"
 }

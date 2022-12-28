@@ -108,7 +108,7 @@
   "product_id" : "Code",
   "product_name" : "Tên sản phẩm",
   "avatar" : "Ảnh đại diện",
-  "image" : "Ảnh sản phẩm",
+  "image" : "Ảnh tour",
   "activity" : "Hoạt động",
   "timeline" : "Mốc thời gian",
   "account" : "Tài khoản",
@@ -570,5 +570,14 @@
   "Search_by_VGA_code": "Tìm theo mã VGA",
   "Search_by_id": "Tìm theo Id",
   "Search_by_bill_code": "Tìm theo mã vận đơn",
-  "Search_by_phone_number": "Tìm theo số điện thoại"
+  "Search_by_phone_number": "Tìm theo số điện thoại",
+  "manage_tour": "Quản lý tour",
+  "add_tour": "Thêm mới tour",
+  "name_tour": "Tên tour",
+  "vali_cate": "Vui lòng nhập tên danh mục",
+  "msg_cate": "Thêm danh mục thành công",
+  "sold_number": "Số lượng đã bán",
+  "guest_number": "Số lần mua tối đa",
+  "slug": "Đường dẫn",
+  "country": "Quốc gia"
 }

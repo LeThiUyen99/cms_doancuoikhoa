@@ -154,12 +154,12 @@ export default {
     onCreateAccout() {
       if (!this.isValidate()) return
       adminResource.storeAccount({ name: this.name, username: this.email, password: md5(this.password), phone: this.phone, email: this.email, active: 1 }).then(response => {
-        const { error, msg } = response
-        if (error === 0) {
-          this.$message.success(msg || i18n.t('register_success'))
+        const { error_code, error_msg } = response
+        if (error_code === 0) {
+          this.$message.success(error_msg || i18n.t('register_success'))
           this.$router.push('/login')
         } else {
-          this.$message.error(msg || i18n.t('register_fail'))
+          this.$message.error(error_msg || i18n.t('register_fail'))
         }
       })
     },

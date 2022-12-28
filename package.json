@@ -1,7 +1,7 @@
 {
-  "name": "CMS-SHOP",
+  "name": "CMS-TRAVEL",
   "version": "4.4.0",
-  "description": "CMS Shop",
+  "description": "CMS Travel",
   "author": "tritm <triit8866@gmail.com>",
   "scripts": {
     "dev": "vue-cli-service serve",

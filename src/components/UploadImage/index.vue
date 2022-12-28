@@ -32,7 +32,7 @@ export default {
   data() {
     return {
       dialogImageUrl: '',
-      urlBaseApi: `${urlBaseApi}/api/public/post`,
+      urlBaseApi: `${urlBaseApi}/upload/post`,
       objectData: {},
       fileList: []
     }

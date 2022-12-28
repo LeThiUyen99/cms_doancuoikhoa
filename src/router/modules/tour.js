@@ -7,7 +7,7 @@ const tourRouter = {
   redirect: '/tour/lists',
   name: 'Tour',
   meta: {
-    title: 'manage_travel',
+    title: 'manage_tour',
     icon: 'account'
   },
   roles: ['Tour'],
@@ -15,8 +15,8 @@ const tourRouter = {
     {
       path: 'lists',
       component: () => import('@/views/tour/List'),
-      name: 'manage_travel',
-      meta: { title: 'manage_travel' }
+      name: 'manage_tour',
+      meta: { title: 'manage_tour' }
     }
   ]
 }

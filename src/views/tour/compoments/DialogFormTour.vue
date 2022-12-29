@@ -13,21 +13,10 @@
         <upload-image :url-current="tourAvatar" @onSetUrlImage="handleSetImageTour" />
       </el-form-item>
       <el-form :model="objectImg">
-        <el-row>
-          <el-col :span="12">
-            <div class="grid-content bg-purple">
-              <el-form-item v-if="objectData.id" :label="$t('image')" prop="image">
-                <div class="clearfix" />
-                <upload-image-tour :file-list="listImage" @onChangeUploadImage="handleChangeUploadImage" />
-              </el-form-item>
-            </div>
-          </el-col>
-          <el-col :span="12">
-            <div class="grid-content bg-purple-light">
-              <el-button type="primary" @click="submitListImage">{{ $t('add') }}</el-button>
-            </div>
-          </el-col>
-        </el-row>
+        <el-form-item v-if="objectData.id" :label="$t('image')" prop="image">
+          <div class="clearfix" />
+          <upload-image-tour :file-list="listImage" @onChangeUploadImage="handleChangeUploadImage" />
+        </el-form-item>
       </el-form>
       <el-form-item :label="$t('from_start')" prop="name">
         <el-date-picker
@@ -53,7 +42,7 @@
         <el-input v-model="objectData.sold_number" :placeholder="$t('sold_number')" />
       </el-form-item>
       <el-form-item :label="$t('quantily')" prop="name">
-        <el-input v-model="objectData.quantily" :placeholder="$t('quantily')" />
+        <el-input v-model="objectData.quantity" :placeholder="$t('quantily')" />
       </el-form-item>
       <el-form-item :label="$t('guest_number')" prop="name">
         <el-input v-model="objectData.guest_number" :placeholder="$t('guest_number')" />
@@ -182,6 +171,9 @@ export default {
     onSubmitForm() {
       if (this.isAdd) {
         this.handleCreateTour()
+      } else {
+        this.submitListImage()
+        this.handleUpdateTour()
       }
     },
     handleCreateTour() {
@@ -200,6 +192,7 @@ export default {
         this.loadingSubmit = false
       })
     },
+    handleUpdateTour() {},
     requestCategoryList() {
       categoryResource.categoryList().then(res => {
         const { error_code, data } = res

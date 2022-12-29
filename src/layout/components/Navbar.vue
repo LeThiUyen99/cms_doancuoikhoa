@@ -70,7 +70,7 @@ export default {
     ])
   },
   created() {
-    this.getProfile()
+    // this.getProfile()
   },
   methods: {
     toggleSideBar() {

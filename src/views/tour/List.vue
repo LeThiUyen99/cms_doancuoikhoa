@@ -41,9 +41,15 @@
         <el-table-column :label="$t('quantily')" align="center" prop="quantity" />
         <el-table-column :label="$t('guest_number')" align="center" prop="guest_number" />
         <el-table-column :label="$t('slug')" align="center" prop="slug" />
-        <el-table-column :label="$t('city')" align="center" prop="city_id" />
-        <el-table-column :label="$t('country')" align="center" prop="country_id" />
-        <el-table-column :label="$t('category')" align="center" prop="category_id" />
+        <el-table-column :label="$t('city')" align="center" prop="city_id">
+          <template slot-scope="scope">{{ scope.row.city?scope.row.city.name: '' }}</template>
+        </el-table-column>
+        <el-table-column :label="$t('country')" align="center" prop="country_id">
+          <template slot-scope="scope">{{ scope.row.country?scope.row.country.name: '' }}</template>
+        </el-table-column>
+        <el-table-column :label="$t('category')" align="center" prop="category_id">
+          <template slot-scope="scope">{{ scope.row.category?scope.row.category.name: '' }}</template>
+        </el-table-column>
         <el-table-column :label="$t('active')" align="center">
           <template slot-scope="scope">
             <el-button type="primary" icon="el-icon-edit" circle @click="onShowDialogEdit(scope.row)" />

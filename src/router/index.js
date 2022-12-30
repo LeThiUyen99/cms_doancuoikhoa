@@ -7,6 +7,7 @@ Vue.use(Router)
 import Layout from '@/layout'
 import tourRouter from '@/router/modules/tour'
 import categoriesRouter from '@/router/modules/category'
+import adminRouter from '@/router/modules/admin'
 /**
  * Note: sub-menu only appear when route children.length >= 1
  * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
@@ -109,6 +110,7 @@ export const constantRoutes = [
  * the routes that need to be dynamically loaded based on user roles
  */
 export const asyncRoutes = [
+  adminRouter,
   tourRouter,
   categoriesRouter,
   // 404 page must be placed at the end !!!

@@ -570,5 +570,9 @@
   "sold_number": "Sold quantity",
   "guest_number": "Maximum number of purchases",
   "slug": "Path",
-  "country": "Country"
+  "country": "Country",
+  "currency_unit": "Currency unit",
+  "update_tour": "Update tour",
+  "list_image": "List of images",
+  "update_acc": "Cập nhật tài khoản"
 }

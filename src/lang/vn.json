@@ -579,5 +579,9 @@
   "sold_number": "Số lượng đã bán",
   "guest_number": "Số lần mua tối đa",
   "slug": "Đường dẫn",
-  "country": "Quốc gia"
+  "country": "Quốc gia",
+  "currency_unit": "Đơn vị tiền tệ",
+  "update_tour": "Cập nhật tour",
+  "list_image": "Danh sách ảnh",
+  "update_acc": "Cập nhật tài khoản"
 }

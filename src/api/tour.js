@@ -26,6 +26,12 @@ class TourResource extends Resource {
       data: resource
     })
   }
+  deleteTour(id) {
+    return request({
+      url: `/${this.uri}/delete/${id}?${this.getVerify()}`,
+      method: 'get'
+    })
+  }
   getCountryList(query) {
     return request({
       url: `/${this.uri}/country?${this.getVerify()}`,

@@ -9,20 +9,51 @@
       </el-col>
     </el-row>
     <el-row class="list-tour__search" style="padding-bottom: 10px">
-      <el-col :sm="24">
-        <el-input v-model="listQuery.q" :placeholder="$t('key_input')" />
-        <el-select v-model="filterId" :placeholder="$t('key_input')">
-          <el-option
-            v-for="filter in filters"
-            :key="`filter_${filter.key}`"
-            :label="filter.name"
-            :value="filter.key"
-          />
-        </el-select>
-        <el-select v-model="CategoryId" class="w-100" filterable remote :multiple-limit="1" :placeholder="$t('category')">
-          <el-option v-for="category in categories" :key="category.id" :label="category.name" :value="category.id" />
-        </el-select>
-      </el-col>
+      <el-row>
+        <el-col :span="5" class="col-filter">
+          <div class="grid-content bg-purple">
+            <el-input v-model="listQuery.q" :placeholder="$t('key_input')" />
+          </div>
+        </el-col>
+        <el-col :span="3" class="col-filter">
+          <div class="grid-content bg-purple">
+            <el-select v-model="filterId" :placeholder="$t('key_input')">
+              <el-option
+                v-for="filter in filters"
+                :key="`filter_${filter.key}`"
+                :label="filter.name"
+                :value="filter.key"
+              />
+            </el-select>
+          </div>
+        </el-col>
+        <el-col :span="5" class="col-filter">
+          <div class="grid-content bg-purple-light">
+            <el-select v-model="CategoryId" class="w-100" filterable remote :multiple-limit="1" :placeholder="$t('category')">
+              <el-option v-for="category in categories" :key="category.id" :label="category.name" :value="category.id" />
+            </el-select>
+          </div>
+        </el-col>
+        <el-col :span="5" class="col-filter">
+          <div class="grid-content bg-purple">
+            <el-select v-model="countryId" class="w-100" filterable remote :multiple-limit="1" :placeholder="$t('country')">
+              <el-option v-for="country in countries" :key="country.id" :label="country.name" :value="country.id" />
+            </el-select>
+          </div>
+        </el-col>
+        <el-col :span="4" class="col-filter">
+          <div class="grid-content bg-purple-light">
+            <el-select v-model="cityId" class="w-100" filterable remote :multiple-limit="1" :placeholder="$t('city')">
+              <el-option v-for="city in citis" :key="city.id" :label="city.name" :value="city.id" />
+            </el-select>
+          </div>
+        </el-col>
+        <el-col :span="1" class="col-filter">
+          <div class="grid-content bg-purple">
+            <el-button type="" @click="onRefresh">{{ $t('refresh') }}</el-button>
+          </div>
+        </el-col>
+      </el-row>
     </el-row>
     <el-row class="list-tour__data">
       <el-table v-loading="loadingTable" :data="tableData" border>
@@ -135,7 +166,11 @@ export default {
       filters: [
         { key: 1, name: 'Tìm theo Id' },
         { key: 2, name: 'Tìm theo tên tour' }
-      ]
+      ],
+      citis: [],
+      countries: [],
+      countryId: null,
+      cityId: null
     }
   },
   watch: {
@@ -148,18 +183,48 @@ export default {
     CategoryId(category_id) {
       this.listQuery.category_id = category_id
       this.requestTourList()
+    },
+    countryId(country_id) {
+      this.listQuery.country_id = country_id
+      this.requestTourList()
+      this.requestCityList(country_id)
     }
   },
   created() {
     this.requestTourList()
     this.requestCategoryList()
+    this.requestCountryList()
   },
   methods: {
+    onRefresh() {
+      this.listQuery = Object.assign({}, defaultQuery)
+      this.filterId = null
+      this.CategoryId = null
+      this.countryId = null
+      this.cityId = null
+      this.requestTourList
+    },
     requestCategoryList() {
       categoryResource.categoryList().then(res => {
         const { error_code, data } = res
         if (error_code === 0) {
           this.categories = [...data.list]
+        }
+      })
+    },
+    requestCountryList() {
+      tourResource.getCountryList().then(res => {
+        const { error_code, data } = res
+        if (error_code === 0) {
+          this.countries = [...data.data]
+        }
+      })
+    },
+    requestCityList(country_id) {
+      tourResource.getProvinceList({ country_id: country_id }).then(res => {
+        const { error_code, data } = res
+        if (error_code === 0) {
+          this.citis = [...data.data]
         }
       })
     },
@@ -196,8 +261,11 @@ export default {
       this.onShowDialog = true
     },
     handleClickButtonDialog(object) {
-      const { dialog } = object
+      const { dialog, reload } = object
       this.onShowDialog = dialog
+      if (reload) {
+        this.requestTourList()
+      }
     },
     onDeleteAccount(row) {},
     requestTourList() {
@@ -219,4 +287,7 @@ export default {
 </script>
 
 <style scoped>
+  .col-filter{
+    padding: 0 5px 30px 5px;
+  }
 </style>

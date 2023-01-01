@@ -1,25 +1,25 @@
 import Resource from '@/api/resource'
 import request from '@/utils/request'
 
-class CategoryResource extends Resource {
+class ItinerariesResource extends Resource {
   constructor() {
-    super('category')
+    super('tour_itineraries')
   }
-  categoryList(query) {
+  itinerariesList(query) {
     return request({
       url: `/${this.uri}/list?${this.getVerify()}`,
       method: 'get',
       params: query
     })
   }
-  storeCategory(resource) {
+  storeItineraries(resource) {
     return request({
       url: `/${this.uri}/create?${this.getVerify()}`,
       method: 'post',
       data: resource
     })
   }
-  updateCategory(resource) {
+  updateItineraries(resource) {
     return request({
       url: `/${this.uri}/update?${this.getVerify()}`,
       method: 'post',
@@ -34,4 +34,4 @@ class CategoryResource extends Resource {
   }
 }
 
-export { CategoryResource as default }
+export { ItinerariesResource as default }

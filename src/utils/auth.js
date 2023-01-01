@@ -21,7 +21,7 @@ export function setAcountInfo(account = {}) {
 
 export function getAcountInfo(account = '{}') {
   const ac = Cookies.get(accountKey)
-  console.log('.............. thong tin tk  ', ac)
+  // console.log('.............. thong tin tk  ', ac)
   return account ? parseJson(ac) : null
 }
 

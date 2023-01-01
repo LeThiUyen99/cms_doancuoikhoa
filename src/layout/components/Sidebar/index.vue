@@ -50,7 +50,7 @@ export default {
       //   }
       // }
       this.menus = this.permission_routes
-      console.log(this.menus, '------------')
+      // console.log(this.menus, '------------')
     }
   },
   computed: {

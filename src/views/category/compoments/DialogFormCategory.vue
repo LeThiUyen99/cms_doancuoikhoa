@@ -49,10 +49,21 @@ export default {
       loadingSubmit: false
     }
   },
+  watch: {
+    isAdd(value) {
+      if (value) {
+        this.dialog = Object.assign({}, { titleName: i18n.t('add_category'), buttonName: i18n.t('add') })
+      } else {
+        this.dialog = Object.assign({}, { titleName: i18n.t('update_info_category'), buttonName: i18n.t('update') })
+      }
+    }
+  },
   methods: {
     onSubmitForm() {
       if (this.isAdd) {
         this.HandleCreateCategories()
+      } else {
+        this.handleUpdateCategory()
       }
     },
     HandleCreateCategories() {
@@ -64,6 +75,22 @@ export default {
           this.$emit('onClickButtonDialog', { dialog: false, reload: true })
           this.$message.success(i18n.t('msg_cate'))
           this.objectData = []
+        } else {
+          this.$message.error(error_msg)
+        }
+      }).catch(_ => {
+        this.loadingSubmit = false
+      })
+    },
+    handleUpdateCategory() {
+      this.loadingSubmit = true
+      categoryResource.updateCategory(this.objectData).then(res => {
+        this.loadingSubmit = false
+        const { error_code, error_msg } = res
+        if (error_code === 0) {
+          this.$emit('onClickButtonDialog', { dialog: false, reload: true })
+          this.objectData = {}
+          this.$message.success(error_msg)
         } else {
           this.$message.error(error_msg)
         }

@@ -32,6 +32,13 @@ class ItinerariesResource extends Resource {
       method: 'get'
     })
   }
+  search_tour(query) {
+    return request({
+      url: `/${this.uri}/search_tour?${this.getVerify()}`,
+      method: 'get',
+      params: query
+    })
+  }
 }
 
 export { ItinerariesResource as default }

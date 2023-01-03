@@ -14,6 +14,10 @@
           <template slot-scope="scope">{{ `#${scope.row.id}` }}</template>
         </el-table-column>
         <el-table-column :label="$t('name')" prop="name" />
+        <el-table-column :label="$t('applicable_date')" prop="date" />
+        <el-table-column :label="$t('desc')" prop="description" />
+        <el-table-column :label="$t('image')" prop="image" />
+        <el-table-column :label="$t('name_tour')" prop="name" />
       </el-table>
       <el-row class="list-category__footer">
         <pagination v-show="total > listQuery.limit" :total="total" :limit.sync="listQuery.limit" :page.sync="listQuery.page" @pagination="requestItinerariesTourList" />

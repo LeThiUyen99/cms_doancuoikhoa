@@ -575,5 +575,16 @@
   "update_tour": "Update tour",
   "list_image": "List of images",
   "update_acc": "Cập nhật tài khoản",
-  "itineraries_tour": "Itineraries tour"
+  "itineraries_tour": "Itineraries tour",
+  "day": "Day",
+  "manage_blog": "Manage blog",
+  "add_itineraries": "Add schedule",
+  "update_itineraries": "Update schedule",
+  "img_blog": "Blog image",
+  "auth": "Author",
+  "add_blog": "Add post",
+  "update_blog": "Edit post",
+  "manage_book_tour": "Manage tour booking",
+  "add_book_tour": "Book a tour",
+  "update_book_tour": "Edit booked tour"
 }

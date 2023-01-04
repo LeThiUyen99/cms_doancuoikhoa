@@ -1,5 +1,5 @@
 import { login } from '@/api/user'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import { getToken, setToken, removeToken, setAcountInfo } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 import md5 from 'js-md5'
 
@@ -39,9 +39,11 @@ const actions = {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: md5(password), grant_type: 'password' }).then(response => {
-        const { data } = response
+        console.log(response)
+        const { data, account } = response
         commit('SET_TOKEN', data.token)
         setToken(data.token)
+        setAcountInfo(account)
         resolve()
       }).catch(error => {
         console.log(error)

@@ -17,6 +17,7 @@ export function removeToken() {
 
 export function setAcountInfo(account = {}) {
   Cookies.set(accountKey, account)
+  console.log('.............. thong tin tk  ', account)
 }
 
 export function getAcountInfo(account = '{}') {

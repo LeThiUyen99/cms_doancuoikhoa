@@ -10,14 +10,27 @@
     </el-row>
     <el-row class="list-tour__data">
       <el-table v-loading="loadingTable" :data="tableData" border>
-        <el-table-column label="ID">
+        <el-table-column label="ID" align="center" width="50">
           <template slot-scope="scope">{{ `#${scope.row.id}` }}</template>
         </el-table-column>
-        <el-table-column :label="$t('name')" prop="name" />
-        <el-table-column :label="$t('applicable_date')" prop="date" />
-        <el-table-column :label="$t('desc')" prop="description" />
-        <el-table-column :label="$t('image')" prop="image" />
-        <el-table-column :label="$t('name_tour')" prop="name" />
+        <el-table-column :label="$t('day')" prop="name" align="center" width="150">
+          <template slot-scope="scope">{{ `${scope.row.name} ${scope.row.day}` }}</template>
+        </el-table-column>
+        <el-table-column :label="$t('image')" prop="image" align="center">
+          <template slot-scope="scope">
+            <el-image v-if="scope.row.image" :src="url + scope.row.image" fit="contain" style="height: 70px;" />
+          </template>
+        </el-table-column>
+        <el-table-column :label="$t('desc')" prop="description" align="center" />
+        <el-table-column :label="$t('name_tour')" width="300" align="center">
+          <template slot-scope="scope">{{ scope.row.tour? scope.row.tour.name: '' }}</template>
+        </el-table-column>
+        <el-table-column :label="$t('action')" align="center" width="150">
+          <template slot-scope="scope">
+            <el-button type="primary" icon="el-icon-edit" circle @click="updateItinerariesTour(scope.row)" />
+            <el-button type="danger" icon="el-icon-delete" circle @click="onDeleteItirenatiesTour(scope.row)" />
+          </template>
+        </el-table-column>
       </el-table>
       <el-row class="list-category__footer">
         <pagination v-show="total > listQuery.limit" :total="total" :limit.sync="listQuery.limit" :page.sync="listQuery.page" @pagination="requestItinerariesTourList" />
@@ -28,9 +41,11 @@
 </template>
 
 <script>
+import BASE_URL from '@/constant/domain'
 import Pagination from '@/components/Pagination'
 import ItinerariesResource from '@/api/itineraries'
 import DialogFormItineraties from '@/views/itineraries/compoments/DialogFormItineraties'
+import i18n from '@/lang/i18n'
 const itinerariesResource = new ItinerariesResource()
 const defaultQuery = {
   page: 1,
@@ -47,6 +62,7 @@ export default {
       total: 0,
       onShowDialog: false,
       isAdd: false,
+      url: BASE_URL,
       objectItineraries: {}
     }
   },
@@ -54,6 +70,19 @@ export default {
     this.requestItinerariesTourList()
   },
   methods: {
+    onDeleteItirenatiesTour(row) {
+      this.$confirm(i18n.t('delete_confirm').format(row.name)).then(_ => {
+        itinerariesResource.deleteItineraries(row.id).then(response => {
+          const { error_code, error_msg } = response
+          if (error_code === 0) {
+            this.$message.success(i18n.t('delete_success.'))
+            this.requestItinerariesTourList()
+          } else {
+            this.$message.error(error_msg)
+          }
+        })
+      }).catch(_ => {})
+    },
     requestItinerariesTourList() {
       this.loadingTable = true
       itinerariesResource.itinerariesList(this.listQuery).then(res => {

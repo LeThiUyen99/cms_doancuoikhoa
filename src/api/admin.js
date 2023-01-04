@@ -32,6 +32,13 @@ class AdminResource extends Resource {
       method: 'get'
     })
   }
+  login(data) {
+    return request({
+      url: `/${this.uri}/login`,
+      method: 'post',
+      data
+    })
+  }
 }
 
 export { AdminResource as default }

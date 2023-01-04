@@ -584,5 +584,16 @@
   "update_tour": "Cập nhật tour",
   "list_image": "Danh sách ảnh",
   "update_acc": "Cập nhật tài khoản",
-  "itineraries_tour": "Lịch trình tour"
+  "itineraries_tour": "Lịch trình tour",
+  "day": "Ngày",
+  "manage_blog": "Quản lý bài viết",
+  "add_itineraries": "Thêm lịch trình",
+  "update_itineraries": "Cập nhật lịch trình",
+  "img_blog": "Ảnh bài viết",
+  "auth": "Tác giả",
+  "add_blog": "Thêm bài viết",
+  "update_blog": "Sửa bài viết",
+  "manage_book_tour": "Quản lý đặt tour",
+  "add_book_tour": "Đặt tour",
+  "update_book_tour": "Sửa tour đã đặt"
 }

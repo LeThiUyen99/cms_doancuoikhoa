@@ -1,25 +1,18 @@
 <template>
   <el-dialog :title="dialog.titleName" :visible.sync="showDialog" :before-close="handleClose">
-    <el-form :model="body">
-      <el-form-item :label="$t('name')">
-        <el-input v-model="body.name" :placeholder="$t('name')" />
+    <el-form ref="ruleForm" :model="body" class="demo-ruleForm">
+      <el-form-item :label="$t('title')" prop="name">
+        <el-input v-model="body.title" :placeholder="$t('title')" />
       </el-form-item>
-      <el-form-item :label="$t('day')">
-        <el-input v-model="body.day" :placeholder="$t('day')" />
+      <el-form-item :label="$t('content')" prop="name">
+        <el-input v-model="body.content" type="textarea" :placeholder="$t('content')" />
       </el-form-item>
-      <el-form-item :label="$t('desc')">
+      <el-form-item :label="$t('desc')" prop="name">
         <el-input v-model="body.description" type="textarea" :placeholder="$t('desc')" />
       </el-form-item>
-      <el-form-item :label="$t('name_tour')">
-        <el-select v-model="body.tour_id" class="w-100" filterable remote :multiple-limit="1" :placeholder="$t('name_tour')">
-          <el-option v-for="tour in tours" :key="tour.id" :label="tour.name" :value="tour.id" />
-        </el-select>
-        <!--        <el-input v-model="body.tour_id" :placeholder="$t('enter_vga')" />-->
-        <!--        <el-button class="button-delivery" @click="requestTour">{{ $t("extra") }}</el-button>-->
-      </el-form-item>
-      <el-form-item :label="$t('image')">
+      <el-form-item :label="$t('img_blog')" prop="name">
         <div class="clearfix" />
-        <upload-image v-model="body.image" :url-current="body.image" @onSetUrlImage="handleSetImageTour" />
+        <upload-image v-model="body.images" :url-current="body.images" @onSetUrlImage="handleSetImageTour" />
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -30,12 +23,14 @@
 </template>
 
 <script>
+import { getAcountInfo } from '@/utils/auth'
+import BlogResource from '@/api/blog'
 import uploadImage from '@/components/UploadImage'
 import i18n from '@/lang/i18n'
-import ItinerariesResource from '@/api/itineraries'
-const itirenatiesResource = new ItinerariesResource()
+const blogResource = new BlogResource()
+const account = getAcountInfo()
 export default {
-  name: 'DialogFormItineraties',
+  name: 'DialogFormBlog',
   components: { uploadImage },
   props: {
     showDialog: {
@@ -53,23 +48,19 @@ export default {
       }
     }
   },
-
   data() {
     return {
-      dialog: { titleName: i18n.t('add_itineraries'), buttonName: i18n.t('add') },
+      dialog: { titleName: i18n.t('add_blog'), buttonName: i18n.t('add') },
       body: {},
-      loadingSubmit: false,
-      defaultTime: '23:59:00',
-      tours: []
+      loadingSubmit: false
     }
   },
   watch: {
     isAdd(value) {
       if (value) {
-        this.body = {}
-        this.dialog = Object.assign({}, { titleName: i18n.t('add_itineraries'), buttonName: i18n.t('add') })
+        this.dialog = Object.assign({}, { titleName: i18n.t('add_blog'), buttonName: i18n.t('add') })
       } else {
-        this.dialog = Object.assign({}, { titleName: i18n.t('update_itineraries'), buttonName: i18n.t('update') })
+        this.dialog = Object.assign({}, { titleName: i18n.t('update_blog'), buttonName: i18n.t('update') })
       }
     },
     objectData(object) {
@@ -78,28 +69,18 @@ export default {
       }
     }
   },
-  created() {
-    this.requestTour()
-  },
   methods: {
-    requestTour() {
-      itirenatiesResource.search_tour().then(res => {
-        const { error_code, data } = res
-        if (error_code === 0) {
-          this.tours = data
-        }
-      })
-    },
     onSubmitForm() {
       if (this.isAdd) {
-        this.handleCreateItineratiesTour()
+        this.handleCreateBlog()
       } else {
-        this.handleUpdateItirenatiesTour()
+        this.handleUpdateBlog()
       }
     },
-    handleCreateItineratiesTour() {
+    handleCreateBlog() {
       this.loadingSubmit = true
-      itirenatiesResource.storeItineraries(this.body).then(res => {
+      this.body.auth_id = account.id
+      blogResource.storeBlog(this.body).then(res => {
         this.loadingSubmit = false
         const { error_code, error_msg } = res
         if (error_code === 0) {
@@ -125,10 +106,10 @@ export default {
       body.id = this.body.id
       return body
     },
-    handleUpdateItirenatiesTour() {
+    handleUpdateBlog() {
       this.loadingSubmit = true
       const body = this.getBody()
-      itirenatiesResource.updateItineraries(body).then(res => {
+      blogResource.updateBlog(body).then(res => {
         this.loadingSubmit = false
         const { error_code, error_msg } = res
         if (error_code === 0) {
@@ -144,7 +125,7 @@ export default {
     },
     handleSetImageTour(object) {
       if (Object.keys(object).length > 0) {
-        this.body.image = object.name
+        this.body.images = object.name
       }
     },
     handleClose() {
@@ -154,6 +135,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 
 </style>

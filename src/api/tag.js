@@ -1,44 +1,37 @@
 import Resource from '@/api/resource'
 import request from '@/utils/request'
 
-class BookTourResource extends Resource {
+class TagResource extends Resource {
   constructor() {
-    super('book_tour')
+    super('tag')
   }
-  bookTourList(query) {
+  tagList(query) {
     return request({
       url: `/${this.uri}/list?${this.getVerify()}`,
       method: 'get',
       params: query
     })
   }
-  storeBookTour(resource) {
+  storeTag(resource) {
     return request({
       url: `/${this.uri}/create?${this.getVerify()}`,
       method: 'post',
       data: resource
     })
   }
-  updateBookTour(resource) {
+  updateTag(resource) {
     return request({
       url: `/${this.uri}/update?${this.getVerify()}`,
       method: 'post',
       data: resource
     })
   }
-  deleteBookTour(id) {
+  deleteCate(id) {
     return request({
       url: `/${this.uri}/delete/${id}?${this.getVerify()}`,
       method: 'get'
     })
   }
-  updateActiveBook(resource) {
-    return request({
-      url: `/${this.uri}/update_active?${this.getVerify()}`,
-      method: 'post',
-      data: resource
-    })
-  }
 }
 
-export { BookTourResource as default }
+export { TagResource as default }

@@ -53,6 +53,13 @@ class TourResource extends Resource {
       data: resource
     })
   }
+  sendMess(query) {
+    return request({
+      url: `/${this.uri}/message?${this.getVerify()}`,
+      method: 'get',
+      params: query
+    })
+  }
 }
 
 export { TourResource as default }

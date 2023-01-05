@@ -8,7 +8,7 @@ const blogRouter = {
   name: 'Blog',
   meta: {
     title: 'manage_blog',
-    icon: 'account'
+    icon: 'blog'
   },
   roles: ['Blog'],
   children: [

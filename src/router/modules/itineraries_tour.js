@@ -8,7 +8,7 @@ const itinerariesTourRouter = {
   name: 'Itineraries',
   meta: {
     title: 'itineraries_tour',
-    icon: 'list'
+    icon: 'itinerary'
   },
   roles: ['Itineraries'],
   children: [

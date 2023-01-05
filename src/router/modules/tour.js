@@ -8,7 +8,7 @@ const tourRouter = {
   name: 'Tour',
   meta: {
     title: 'manage_tour',
-    icon: 'account'
+    icon: 'tour'
   },
   roles: ['Tour'],
   children: [

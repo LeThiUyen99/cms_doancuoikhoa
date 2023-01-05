@@ -595,5 +595,7 @@
   "update_blog": "Sửa bài viết",
   "manage_book_tour": "Quản lý đặt tour",
   "add_book_tour": "Đặt tour",
-  "update_book_tour": "Sửa tour đã đặt"
+  "update_book_tour": "Sửa tour đã đặt",
+  "manage_comment": "Quản lý bình luận",
+  "manage_tag": "Quản lý tag"
 }

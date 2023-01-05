@@ -8,7 +8,7 @@ const bookTourRouter = {
   name: 'Book',
   meta: {
     title: 'manage_book_tour',
-    icon: 'account'
+    icon: 'orders'
   },
   roles: ['Book'],
   children: [

@@ -30,7 +30,7 @@
         </el-table-column>
         <el-table-column :label="$t('action')" align="center">
           <template slot-scope="scope">
-            <el-button type="success" circle icon="el-icon-check" @click="onConfirmBookTour(scope.row)" />
+            <el-button v-if="showBtn" type="success" circle icon="el-icon-check" @click="onConfirmBookTour(scope.row)" />
             <el-button type="primary" circle icon="el-icon-edit" @click="onShowDialogEdit(scope.row)" />
             <el-button type="danger" circle icon="el-icon-delete" @click="onDeleteBookTour(scope.row)" />
           </template>
@@ -45,12 +45,14 @@
 </template>
 
 <script>
-import { convertDateTime } from '@/utils/convert'
+import { convertDateTime, formatNumber } from '@/utils/convert'
 import DialogFormBookTour from '@/views/book_tour/components/DialogFormBookTour'
 import Pagination from '@/components/Pagination'
 import BookTourResource from '@/api/book_tour'
+import TourResource from '@/api/tour'
 import i18n from '@/lang/i18n'
 const bookTourResource = new BookTourResource()
+const tourResource = new TourResource()
 const defaultQuery = {
   page: 1,
   limit: 10
@@ -66,14 +68,67 @@ export default {
       total: 0,
       objectBook: {},
       isAdd: false,
-      onShowDialog: false
+      onShowDialog: false,
+      showBtn: false
     }
   },
   created() {
     this.requestBookTourList()
   },
   methods: {
-    onConfirmBookTour() {},
+    BtnConfirm() {
+      for (const data of this.tableData) {
+        console.log(data)
+        if (data.active === 1) {
+          this.showBtn = false
+        } else {
+          this.showBtn = true
+        }
+      }
+    },
+    onConfirmBookTour(row) {
+      this.sendMessage(row)
+      this.updateActive(row)
+    },
+    updateActive(row) {
+      const body = {
+        active: row.active,
+        id: row.id
+      }
+      this.loadingTable = true
+      bookTourResource.updateActiveBook(body).then(res => {
+        this.loadingTable = false
+        const { error_code, error_msg } = res
+        if (error_code === 0) {
+          this.$message.success(error_msg)
+          this.requestBookTourList()
+        } else {
+          this.$message.error(error_msg)
+        }
+      })
+    },
+    sendMessage(row) {
+      const query = {
+        full_name: row.customer_name,
+        phone: row.customer_phone,
+        price: formatNumber(row.price),
+        start_date: convertDateTime(row.start_date),
+        end_date: convertDateTime(row.end_date),
+        name_tour: row.tour.name,
+        id: row.id
+      }
+      this.loadingTable = true
+      tourResource.sendMess(query).then(res => {
+        this.loadingTable = false
+        const { error_code, error_msg } = res
+        if (error_code === 0) {
+          this.$message.success(error_msg)
+          this.requestBookTourList()
+        } else {
+          this.$message.error(error_msg)
+        }
+      })
+    },
     addBookTour() {
       this.objectBook = {}
       this.isAdd = true
@@ -99,6 +154,7 @@ export default {
         if (error_code === 0) {
           this.tableData = data.data
           this.total = this.listQuery.page === 1 ? data.totalPage : this.total
+          this.BtnConfirm(this.tableData)
         }
       })
     },
@@ -115,7 +171,8 @@ export default {
         })
       }).catch(_ => {})
     },
-    convertDateTime
+    convertDateTime,
+    formatNumber
   }
 }
 </script>

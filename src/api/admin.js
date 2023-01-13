@@ -39,6 +39,20 @@ class AdminResource extends Resource {
       data
     })
   }
+  updateActive(resource) {
+    return request({
+      url: `/${this.uri}/update_active?${this.getVerify()}`,
+      method: 'post',
+      data: resource
+    })
+  }
+  menuList(query) {
+    return request({
+      url: `/${this.uri}/menus?${this.getVerify()}`,
+      method: 'get',
+      params: query
+    })
+  }
 }
 
 export { AdminResource as default }

@@ -14,6 +14,16 @@
         <el-table-column :label="$t('username')" align="center" prop="user_name" />
         <el-table-column :label="$t('phone')" align="center" prop="phone" />
         <el-table-column :label="$t('email')" align="center" header-align="center" prop="email" />
+        <el-table-column :label="$t('active')" align="center" header-align="center" prop="is_active">
+          <template slot-scope="scope">
+            <el-switch
+              :key="scope.row.id"
+              :value="scope.row.is_active ? true : false"
+              :active-text="getStatusTitle(scope.row.is_active)"
+              @change="changeActiveReturn(scope.row)"
+            />
+          </template>
+        </el-table-column>
         <el-table-column :label="$t('action')" align="center">
           <template slot-scope="scope">
             <el-button type="primary" circle icon="el-icon-edit" @click="onShowDialogEdit(scope.row)" />
@@ -56,6 +66,35 @@ export default {
     this.requestAccountList()
   },
   methods: {
+    getStatusTitle(value) {
+      return value ? i18n.t('active_') : i18n.t('not_active')
+    },
+    changeActiveReturn(row) {
+      let is_active = row.is_active
+      is_active = is_active === 1 ? 0 : 1
+      const body = {
+        id: row.id,
+        is_active: is_active
+      }
+      console.log('..........................row ', JSON.stringify(row))
+      adminResource.updateActive(body).then(response => {
+        console.log('----------------------------------body', body)
+        console.log('.............................res', response)
+        const { error_code, error_msg } = response
+        if (error_code === 0) {
+          this.$message.success(error_msg)
+          row.is_active = is_active
+        } else {
+          this.$message.error(error_msg)
+          is_active = is_active === 1 ? 0 : 1
+          // this.switchData[row.id] = status === 1 ? true : false
+        }
+      })
+        .catch(err => {
+          this.$message.error(err)
+          // this.switchData[row.id] = status === 1 ? true : false
+        })
+    },
     requestAccountList() {
       this.loadingTable = true
       adminResource.AccountList(this.listQuery).then(res => {

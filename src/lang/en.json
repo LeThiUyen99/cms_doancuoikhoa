@@ -588,5 +588,6 @@
   "add_book_tour": "Book a tour",
   "update_book_tour": "Edit booked tour",
   "manage_comment": "Manage comments",
-  "manage_tag": "Manage tags"
+  "manage_tag": "Manage tags",
+  "not_active": "Not activated yet"
 }

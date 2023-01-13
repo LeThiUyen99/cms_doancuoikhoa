@@ -13,6 +13,7 @@ import blogRouter from '@/router/modules/blog'
 import bookTourRouter from '@/router/modules/book_tour'
 import commentRouter from '@/router/modules/comment'
 import tagRouter from '@/router/modules/tag'
+import permissionRouter from '@/router/modules/permission'
 /**
  * Note: sub-menu only appear when route children.length >= 1
  * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
@@ -116,6 +117,7 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   adminRouter,
+  permissionRouter,
   tourRouter,
   categoriesRouter,
   itinerariesTourRouter,

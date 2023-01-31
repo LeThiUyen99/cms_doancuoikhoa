@@ -5,12 +5,12 @@
     :before-close="handleClose"
   >
     <el-form ref="ruleForm" :model="objectData" :rules="rules" class="demo-ruleForm">
+      <el-form-item :label="$t('name_tour')" prop="name">
+        <el-input v-model="objectData.name" :placeholder="$t('name_tour')" />
+      </el-form-item>
       <el-row>
         <el-col :span="12" style="padding-right: 10px">
           <div class="grid-content bg-purple">
-            <el-form-item :label="$t('name_tour')" prop="name">
-              <el-input v-model="objectData.name" :placeholder="$t('name_tour')" />
-            </el-form-item>
             <el-form-item :label="$t('price')" prop="name">
               <el-input v-model="objectData.price" :placeholder="$t('price')" />
             </el-form-item>
@@ -49,9 +49,9 @@
         </el-col>
         <el-col :span="12">
           <div class="grid-content bg-purple-light">
-            <el-form-item :label="$t('slug')" prop="name">
-              <el-input v-model="objectData.slug" :placeholder="$t('slug')" />
-            </el-form-item>
+            <!--            <el-form-item :label="$t('slug')" prop="name">-->
+            <!--              <el-input v-model="objectData.slug" :placeholder="$t('slug')" />-->
+            <!--            </el-form-item>-->
             <el-form-item :label="$t('currency_unit')" prop="name">
               <el-input v-model="objectData.currency" :placeholder="$t('currency_unit')" />
             </el-form-item>

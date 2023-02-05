@@ -58,7 +58,7 @@ export default {
           this.total = data.total
         }
       })
-    },
+    }
   }
 }
 </script>

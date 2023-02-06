@@ -8,7 +8,8 @@ const adminRouter = {
   name: 'Admin',
   meta: {
     title: 'manage_account',
-    icon: 'account'
+    icon: 'account',
+    isShow: [0, 1]
   },
   roles: ['Admin'],
   children: [
@@ -16,7 +17,13 @@ const adminRouter = {
       path: 'lists',
       component: () => import('@/views/admin/List'),
       name: 'manage_account',
-      meta: { title: 'manage_account' }
+      meta: { title: 'manage_account', isShow: [0, 1] }
+    },
+    {
+      path: 'lists_1',
+      component: () => import('@/views/admin/List'),
+      name: 'manage_account_1',
+      meta: { title: 'manage_account_1', isShow: [0] }
     }
   ]
 }

@@ -1,5 +1,5 @@
 import { login } from '@/api/user'
-import { getToken, setToken, removeToken, setAcountInfo } from '@/utils/auth'
+import { getToken, setToken, removeToken, setAcountInfo, setUID, removeUID } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 import md5 from 'js-md5'
 import { Message } from 'element-ui'
@@ -46,6 +46,7 @@ const actions = {
           commit('SET_TOKEN', data.token)
           setToken(data.token)
           setAcountInfo(data.account)
+          setUID(data.account.id)
           resolve()
         } else {
           console.log(error_msg)
@@ -92,6 +93,7 @@ const actions = {
     commit('SET_TOKEN', '')
     commit('SET_ROLES', [])
     removeToken()
+    removeUID()
     resetRouter()
     dispatch('tagsView/delAllViews', null, { root: true })
   },

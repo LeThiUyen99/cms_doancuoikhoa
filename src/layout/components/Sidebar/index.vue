@@ -24,19 +24,34 @@ import { mapGetters } from 'vuex'
 import Logo from './Logo'
 import SidebarItem from './SidebarItem'
 import variables from '@/styles/variables.scss'
+import AdminResource from '@/api/admin'
+import { getAcountInfo } from '@/utils/auth'
+const adminResource = new AdminResource()
 // import store from '@/store'
 
 export default {
   components: { SidebarItem, Logo },
   data() {
     return {
-      menus: []
+      menus: [],
+      account: {}
     }
   },
   created() {
     this.createMenus()
+    this.requestAccount()
   },
   methods: {
+    requestAccount() {
+      const acc = getAcountInfo()
+      const id = acc.id
+      adminResource.detailAdmin(id).then(res => {
+        const { error_code, data } = res
+        if (error_code === 0) {
+          this.account = { ...data.data }
+        }
+      })
+    },
     async createMenus() {
       // const { roles } = await store.dispatch('user/getInfo')
       // console.log('....................list roles:', roles)
@@ -49,8 +64,24 @@ export default {
       //     this.menus.push(menu)
       //   }
       // }
-      this.menus = this.permission_routes
-      // console.log(this.menus, '------------')
+      // if (account.role === 1) {
+      //   this.$route.meta.isShow = false
+      // }
+      // console.log(this.permission_routes)
+
+      adminResource.detailAdmin().then(res => {
+        if (res.error_code === 0) {
+          this.menus = this.permission_routes.filter((v) => {
+            if (res.data.data.role === 1) {
+              v.children = v.children?.filter((e) => e?.meta?.isShow?.includes(1))
+              if (v?.meta?.isShow?.includes(1)) return v
+            } else if (res.data.data.role === 0) {
+              v.children = v.children?.filter((e) => e?.meta?.isShow?.includes(0))
+              if (v?.meta?.isShow?.includes(0)) return v
+            }
+          })
+        }
+      })
     }
   },
   computed: {

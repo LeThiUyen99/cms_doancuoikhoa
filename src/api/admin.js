@@ -53,6 +53,12 @@ class AdminResource extends Resource {
       params: query
     })
   }
+  detailAdmin(id) {
+    return request({
+      url: `/${this.uri}/detail?id=${id}&${this.getVerify()}`,
+      method: 'get'
+    })
+  }
 }
 
 export { AdminResource as default }

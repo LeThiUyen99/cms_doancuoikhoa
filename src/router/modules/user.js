@@ -8,7 +8,8 @@ const userRouter = {
   name: 'User',
   meta: {
     title: 'manage_user',
-    icon: 'account'
+    icon: 'account',
+    isShow: [0]
   },
   roles: ['User'],
   children: [
@@ -16,7 +17,7 @@ const userRouter = {
       path: 'lists',
       component: () => import('@/views/custom/List'),
       name: 'manage_user',
-      meta: { title: 'manage_user' }
+      meta: { title: 'manage_user', isShow: [0] }
     }
   ]
 }

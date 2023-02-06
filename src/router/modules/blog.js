@@ -8,7 +8,8 @@ const blogRouter = {
   name: 'Blog',
   meta: {
     title: 'manage_blog',
-    icon: 'blog'
+    icon: 'blog',
+    isShow: [1]
   },
   roles: ['Blog'],
   children: [
@@ -16,7 +17,7 @@ const blogRouter = {
       path: 'lists',
       component: () => import('@/views/blog/List'),
       name: 'manage_blog',
-      meta: { title: 'manage_blog' }
+      meta: { title: 'manage_blog', isShow: [1] }
     }
   ]
 }

@@ -8,7 +8,8 @@ const categoriesRouter = {
   name: 'Category',
   meta: {
     title: 'manage_category',
-    icon: 'list'
+    icon: 'list',
+    isShow: [1]
   },
   roles: ['Category'],
   children: [
@@ -16,7 +17,7 @@ const categoriesRouter = {
       path: 'lists',
       component: () => import('@/views/category/List'),
       name: 'manage_category',
-      meta: { title: 'manage_category' }
+      meta: { title: 'manage_category', isShow: [1] }
     }
   ]
 }

@@ -2,21 +2,22 @@
 import Layout from '@/layout'
 
 const bookTourRouter = {
-  path: '/Book',
+  path: '/book',
   component: Layout,
-  redirect: '/book_tour/lists',
+  redirect: '/book/lists',
   name: 'Book',
   meta: {
     title: 'manage_book_tour',
-    icon: 'orders'
+    icon: 'orders',
+    isShow: [0, 1]
   },
   roles: ['Book'],
   children: [
     {
-      path: 'lists',
+      path: 'list',
       component: () => import('@/views/book_tour/List'),
       name: 'manage_book_tour',
-      meta: { title: 'manage_book_tour' }
+      meta: { title: 'manage_book_tour', isShow: [0, 1] }
     }
   ]
 }

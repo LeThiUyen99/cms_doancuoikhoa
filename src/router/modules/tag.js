@@ -8,7 +8,8 @@ const tagRouter = {
   name: 'Tag',
   meta: {
     title: 'manage_tag',
-    icon: 'tag'
+    icon: 'tag',
+    isShow: [1]
   },
   roles: ['Tag'],
   children: [
@@ -16,7 +17,7 @@ const tagRouter = {
       path: 'lists',
       component: () => import('@/views/tag/List'),
       name: 'manage_tag',
-      meta: { title: 'manage_tag' }
+      meta: { title: 'manage_tag', isShow: [1] }
     }
   ]
 }

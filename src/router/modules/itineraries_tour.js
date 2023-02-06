@@ -8,7 +8,8 @@ const itinerariesTourRouter = {
   name: 'Itineraries',
   meta: {
     title: 'itineraries_tour',
-    icon: 'itinerary'
+    icon: 'itinerary',
+    isShow: [1]
   },
   roles: ['Itineraries'],
   children: [
@@ -16,7 +17,7 @@ const itinerariesTourRouter = {
       path: 'lists',
       component: () => import('@/views/itineraries/List'),
       name: 'itineraries_tour',
-      meta: { title: 'itineraries_tour' }
+      meta: { title: 'itineraries_tour', isShow: [1] }
     }
   ]
 }

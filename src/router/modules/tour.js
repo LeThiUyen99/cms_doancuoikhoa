@@ -8,7 +8,8 @@ const tourRouter = {
   name: 'Tour',
   meta: {
     title: 'manage_tour',
-    icon: 'tour'
+    icon: 'tour',
+    isShow: [1]
   },
   roles: ['Tour'],
   children: [
@@ -16,7 +17,7 @@ const tourRouter = {
       path: 'lists',
       component: () => import('@/views/tour/List'),
       name: 'manage_tour',
-      meta: { title: 'manage_tour' }
+      meta: { title: 'manage_tour', isShow: [1] }
     }
   ]
 }

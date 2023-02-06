@@ -8,7 +8,8 @@ const commentRouter = {
   name: 'Comment',
   meta: {
     title: 'manage_comment',
-    icon: 'comment'
+    icon: 'comment',
+    isShow: [1]
   },
   roles: ['Comment'],
   children: [
@@ -16,7 +17,7 @@ const commentRouter = {
       path: 'lists',
       component: () => import('@/views/comment/List'),
       name: 'manage_comment',
-      meta: { title: 'manage_comment' }
+      meta: { title: 'manage_comment', isShow: [1] }
     }
   ]
 }

@@ -104,12 +104,13 @@
         <!--          </template>-->
         <!--        </el-table-column>-->
         <!--        <el-table-column :label="$t('slug')" align="center" prop="slug" />-->
-        <el-table-column :label="$t('city')" align="center" prop="city_id">
-          <template slot-scope="scope">{{ scope.row.city?scope.row.city.name: '' }}</template>
-        </el-table-column>
-        <el-table-column :label="$t('country')" align="center" prop="country_id">
-          <template slot-scope="scope">{{ scope.row.country?scope.row.country.name: '' }}</template>
-        </el-table-column>
+        <!--        <el-table-column :label="$t('city')" align="center" prop="city_id">-->
+        <!--          <template slot-scope="scope">{{ scope.row.city?scope.row.city.name: '' }}</template>-->
+        <!--        </el-table-column>-->
+        <!--        <el-table-column :label="$t('country')" align="center" prop="country_id">-->
+        <!--          <template slot-scope="scope">{{ scope.row.country?scope.row.country.name: '' }}</template>-->
+        <!--        </el-table-column>-->
+        <el-table-column :label="$t('time')" align="center" prop="time" />
         <el-table-column :label="$t('category')" align="center" prop="category_id">
           <template slot-scope="scope">{{ scope.row.category?scope.row.category.name: '' }}</template>
         </el-table-column>

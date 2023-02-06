@@ -20,6 +20,7 @@
                 type="datetime"
                 format="dd-MM-yyyy HH:mm:ss"
                 :placeholder="$t('from_start')"
+                :picker-options="datePickerOptions1"
               />
             </el-form-item>
             <el-form-item :label="$t('country')" prop="name">
@@ -62,6 +63,7 @@
                 format="dd-MM-yyyy HH:mm:ss"
                 :default-time="defaultTime"
                 :placeholder="$t('time_end')"
+                :picker-options="datePickerOptions"
               />
             </el-form-item>
             <el-form-item :label="$t('city')" prop="name">
@@ -74,8 +76,8 @@
                 />
               </el-select>
             </el-form-item>
-            <el-form-item :label="$t('sold_number')" prop="name">
-              <el-input v-model="objectData.sold_number" :placeholder="$t('sold_number')" />
+            <el-form-item :label="$t('time')" prop="name">
+              <el-input v-model="objectData.time" :placeholder="$t('time')" />
             </el-form-item>
             <el-form-item :label="$t('guest_number')" prop="name">
               <el-input v-model="objectData.guest_number" :placeholder="$t('guest_number')" />
@@ -166,6 +168,24 @@ export default {
       thumbNail: ''
     }
   },
+  computed: {
+    datePickerOptions() {
+      return {
+        disabledDate: (time) => {
+          const yesterday = new Date(this.objectData.start_date)
+          yesterday.setDate(yesterday.getDate() + 1)
+          return time.getTime() < yesterday.getTime()
+        }
+      }
+    },
+    datePickerOptions1() {
+      return {
+        disabledDate(date) {
+          return date < new Date()
+        }
+      }
+    }
+  },
   watch: {
     objectData(object) {
       this.countryId = object.country_id
@@ -250,6 +270,7 @@ export default {
         quantity: this.objectData.quantity,
         slug: this.objectData.slug,
         description: this.objectData.description,
+        time: this.objectData.time,
         thumbnail: this.objectData.thumbnail
       }
       tourResource.updateTour(body).then(res => {

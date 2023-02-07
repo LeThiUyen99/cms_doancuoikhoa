@@ -25,14 +25,17 @@
         </el-table-column>
         <el-table-column :label="$t('active')" align="center">
           <template slot-scope="scope">
-            <el-tag :type="(scope.row.active === 1) ? 'success' : 'danger'">{{ (scope.row.active === 1) ? $t('confirmation_complete'): $t('confirm_wait') }}</el-tag>
+            <el-tag
+              :type="setStateToStringDelivery(scope.row.active).typeName"
+            >{{ setStateToStringDelivery(scope.row.active).textName }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column :label="$t('action')" align="center">
           <template slot-scope="scope">
             <el-button v-if="showBtn" type="success" circle icon="el-icon-check" @click="onConfirmBookTour(scope.row)" />
             <el-button type="primary" circle icon="el-icon-edit" @click="onShowDialogEdit(scope.row)" />
-            <el-button type="danger" circle icon="el-icon-delete" @click="onDeleteBookTour(scope.row)" />
+            <el-button v-if="showBtn" type="danger" circle icon="el-icon-delete" @click="onCancelBookTour(scope.row)" />
+            <!--            <el-button type="danger" circle icon="el-icon-delete" @click="onDeleteBookTour(scope.row)" />-->
           </template>
         </el-table-column>
       </el-table>
@@ -45,6 +48,7 @@
 </template>
 
 <script>
+import { setStateToStringDelivery } from '@/utils/delivery/convertDelivery'
 import { convertDateTime, formatNumber } from '@/utils/convert'
 import DialogFormBookTour from '@/views/book_tour/components/DialogFormBookTour'
 import Pagination from '@/components/Pagination'
@@ -79,7 +83,7 @@ export default {
     BtnConfirm() {
       for (const data of this.tableData) {
         console.log(data)
-        if (data.active === 1) {
+        if (data.active === 1 || data.active === 2) {
           this.showBtn = false
         } else {
           this.showBtn = true
@@ -90,9 +94,26 @@ export default {
       this.sendMessage(row)
       this.updateActive(row)
     },
+    onCancelBookTour(row) {
+      const body = {
+        active: 2,
+        id: row.id
+      }
+      this.loadingTable = true
+      bookTourResource.updateActiveBook(body).then(res => {
+        this.loadingTable = false
+        const { error_code, error_msg } = res
+        if (error_code === 0) {
+          this.$message.success(error_msg)
+          this.requestBookTourList()
+        } else {
+          this.$message.error(error_msg)
+        }
+      })
+    },
     updateActive(row) {
       const body = {
-        active: row.active,
+        active: 1,
         id: row.id
       }
       this.loadingTable = true
@@ -172,7 +193,8 @@ export default {
       }).catch(_ => {})
     },
     convertDateTime,
-    formatNumber
+    formatNumber,
+    setStateToStringDelivery
   }
 }
 </script>

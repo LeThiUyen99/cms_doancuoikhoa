@@ -8,8 +8,12 @@
         <el-table-column label="ID" align="center" width="50">
           <template slot-scope="scope">#{{ scope.row.id }}</template>
         </el-table-column>
-        <el-table-column :label="$t('name')" prop="customer_name" align="center" />
-        <el-table-column :label="$t('email')" prop="customer_email" align="center" />
+        <el-table-column :label="$t('name')" prop="customer_name" align="center">
+          <template slot-scope="scope">{{ scope.row.user? scope.row.user.name: '' }}</template>
+        </el-table-column>
+        <el-table-column :label="$t('email')" prop="customer_email" align="center">
+          <template slot-scope="scope">{{ scope.row.user? scope.row.user.email: '' }}</template>
+        </el-table-column>
         <el-table-column :label="$t('comment')" prop="comment" align="center" />
         <el-table-column :label="$t('tour_name')" align="center">
           <template slot-scope="scope">{{ scope.row.tour? scope.row.tour.name: '' }}</template>

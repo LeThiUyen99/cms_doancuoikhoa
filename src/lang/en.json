@@ -590,5 +590,10 @@
   "manage_comment": "Manage comments",
   "manage_tag": "Manage tags",
   "not_active": "Not activated yet",
-  "manage_user": "Manage customer"
+  "manage_user": "Manage customer",
+  "revenue": "Revenue",
+  "book_tour": "booked tour",
+  "cancel_tour": "Tour cancellation",
+  "total_cancel_tour": "Total tour cancellations",
+  "total_success_tour": "Total tour booked successfully"
 }

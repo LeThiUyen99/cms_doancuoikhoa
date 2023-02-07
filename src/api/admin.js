@@ -59,6 +59,13 @@ class AdminResource extends Resource {
       method: 'get'
     })
   }
+  chartList(query) {
+    return request({
+      url: `chart/chart?${this.getVerify()}`,
+      method: 'get',
+      params: query
+    })
+  }
 }
 
 export { AdminResource as default }

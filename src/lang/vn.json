@@ -402,7 +402,7 @@
   "add_product": "Thêm mới sản phẩm",
   "update_product": "Chỉnh sửa thông tin sản phẩm",
   "comfirm_product": "Một số tác vụ chưa được lưu, bạn có chắc chắn muốn đóng cửa sổ?",
-  "chart_column": "Biểu đồ lưu lượng truy cập (tính theo lưu lượng)",
+  "chart_column": "Biểu đồ doanh thu",
   "chart_pie": "Biểu đồ lưu lượng truy cập (tính theo %)",
   "count": "Số lượng",
   "no_job" : "Chúc mừng bạn chưa có công việc mới nào",
@@ -599,5 +599,10 @@
   "manage_comment": "Quản lý bình luận",
   "manage_tag": "Quản lý tag",
   "not_active": "Chưa kích hoạt",
-  "manage_user": "Quản lý khách hàng"
+  "manage_user": "Quản lý khách hàng",
+  "revenue": "Doanh thu",
+  "book_tour": "Tour đã đặt",
+  "cancel_tour": "Hủy tour",
+  "total_cancel_tour": "Tổng số tour hủy",
+  "total_success_tour": "Tổng tour đặt thành công"
 }

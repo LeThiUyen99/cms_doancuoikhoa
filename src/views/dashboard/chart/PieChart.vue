@@ -30,21 +30,10 @@ export default {
       series1: [],
       chartOptions: {
         chart: {
-          width: '80%',
+          width: '100%',
           type: 'pie'
         },
         labels: [],
-        // theme: {
-        //   monochrome: {
-        //     enabled: true
-        //   }
-        // },
-        // title: {
-        //   text: `Biểu đồ lưu lượng truy cập (tính theo %) ${this.NameScreen}`,
-        //   style: {
-        //     fontFamily: 'Roboto'
-        //   }
-        // },
         legend: {
           position: 'right',
           horizontalAlign: 'right',
@@ -57,7 +46,6 @@ export default {
           labels: {
             align: 'start'
           }
-          // show: false
         },
         responsive: [{
           breakpoint: 480,
@@ -81,13 +69,26 @@ export default {
   },
   methods: {
     fillDataBarChart(data) {
-      this.chartOptions = { ...this.chartOptions, ...{ labels: data.map(d => d.user_name) }}
-      this.series1 = data.map(d => parseInt(d.percent))
+      this.chartOptions = { ...this.chartOptions, ...{ labels: data.map(d => d.name) }}
+      this.series1 = data.map(d => parseInt(d.view_number))
     }
   }
 }
 </script>
-
+<style>
+.apexcharts-legend {
+  text-align: left;
+}
+.apexcharts-canvas{
+  width: 100% !important;
+}
+#SvgjsSvg1136{
+  width: 100%;
+}
+foreignObject{
+  width: 100%;
+}
+</style>
 <style scoped>
 .apexcharts-legend{
   display: none;

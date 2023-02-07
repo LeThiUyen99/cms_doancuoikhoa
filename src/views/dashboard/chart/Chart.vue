@@ -5,7 +5,7 @@
       ref="myChart"
       type="bar"
       height="500"
-      :options="chartOptions1"
+      :options="chartOptions"
       :series="series"
     />
   </div>
@@ -33,22 +33,11 @@ export default {
   data() {
     return {
       series: [],
-      chartOptions1: {
+      chartOptions: {
         chart: {
           type: 'bar',
           height: 1000
         },
-        // theme: {
-        //   monochrome: {
-        //     enabled: true
-        //   }
-        // },
-        // title: {
-        //   text: 'Biểu đồ lưu lượng truy cập (tính theo lưu lượng)',
-        //   style: {
-        //     fontFamily: 'Roboto'
-        //   }
-        // },
         legend: {
           show: false
         },
@@ -70,32 +59,11 @@ export default {
         xaxis: {
           categories: []
         },
-        // yaxis: {
-        //   title: {
-        //     text: 'Lưu lượng truy cập'
-        //   }
-        // },
         fill: {
           opacity: 1
         },
         tooltip: {
-          // enabled: true,
-          // enabledOnSeries: undefined,
-          // shared: true,
-          // followCursor: false,
-          // intersect: false,
-          // inverseOrder: false,
-          // custom: undefined,
-          // fillSeriesColor: false,
-          // theme: false,
-          x: {
-            show: false
-          }
-          // y: {
-          //   formatter: function(val) {
-          //     return val
-          //   }
-          // }
+          enabled: true
         }
       }
     }
@@ -113,15 +81,15 @@ export default {
     fillDataBarChart(data) {
       // console.log('.................data ', JSON.stringify(data))
       // this.chartOptions1.xaxis.categories = data.map(d => d.user_name)
-      this.chartOptions1 = { ...this.chartOptions1, ...{ labels: data.map(d => d.user_name) }}
-      this.series = data.map(d => {
-        return {
-          name: d.user_name,
-          data: [d.total]
-          // color: this.intToRGB(d.user_id)
+      this.chartOptions = { ...this.chartOptions, xaxis: { categories: data.map(d => d.month) }}
+      // this.series = [{ name: '', data: data.map(({ view_number }) => view_number || 0) }]
+      this.series = [{ name: '', data: data.map(({ money }) => money || 0) }]
+      // this.series = data.map(d => ({
+      //   name: d.name,
+      //   data: [d.view_number]
+      // }))
 
-        }
-      })
+      console.log(this.series, this.chartOptions)
     },
     intToRGB(value) {
       // credit to https://stackoverflow.com/a/2262117/2737978 for the idea of how to implement

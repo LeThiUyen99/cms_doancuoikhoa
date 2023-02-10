@@ -15,6 +15,7 @@ import commentRouter from '@/router/modules/comment'
 import tagRouter from '@/router/modules/tag'
 import permissionRouter from '@/router/modules/permission'
 import userRouter from '@/router/modules/user'
+import chatRouter from '@/router/modules/chat'
 /**
  * Note: sub-menu only appear when route children.length >= 1
  * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
@@ -130,6 +131,7 @@ export const asyncRoutes = [
   commentRouter,
   tagRouter,
   userRouter,
+  chatRouter,
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]

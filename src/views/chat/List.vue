@@ -7,6 +7,10 @@
       :rooms-loaded="true"
       :messages="JSON.stringify(messages)"
       :messages-loaded="messagesLoaded"
+      :show-audio="JSON.stringify(false)"
+      :show-reaction-emojis="JSON.stringify(false)"
+      :show-files="JSON.stringify(false)"
+      message-actions="[]"
       @send-message="sendMessage($event.detail[0])"
       @fetch-messages="fetchMessages($event.detail[0])"
     />

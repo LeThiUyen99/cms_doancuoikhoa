@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import getters from './getters'
-import { websocketPlugin } from '../utils/socket'
 
 Vue.use(Vuex)
 
@@ -20,8 +19,7 @@ const modules = modulesFiles.keys().reduce((modules, modulePath) => {
 
 const store = new Vuex.Store({
   modules,
-  getters,
-  plugins: [websocketPlugin]
+  getters
 })
 
 export default store

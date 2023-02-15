@@ -1,8 +1,8 @@
 <template>
   <el-row class="chat-container">
     <vue-advanced-chat
-      height="calc(100vh - 20px)"
-      :current-user-id="currentUserId"
+      height="calc(100vh - 50px)"
+      :current-user-id="0"
       :rooms="JSON.stringify(rooms)"
       :rooms-loaded="true"
       :messages="JSON.stringify(messages)"
@@ -15,85 +15,79 @@
 
 <script>
 import { register } from 'vue-advanced-chat'
+import io from 'socket.io-client'
+import { getAcountInfo, getToken } from '@/utils/auth'
+import MessageResource from '@/api/message'
+import { convertDate, convertDateTime } from '@/utils/convert'
+import { isEmpty } from '@/utils/validate'
+
+const messageResource = new MessageResource()
+
 register()
 export default {
   name: 'List',
   data() {
     return {
-      currentUserId: '1234',
-      rooms: [
-        {
-          roomId: '1',
-          roomName: 'Room 1',
-          avatar: 'https://66.media.tumblr.com/avatar_c6a8eae4303e_512.pnj',
-          users: [
-            { _id: '1234', username: 'John Doe' },
-            { _id: '4321', username: 'John Snow' }
-          ]
-        }
-      ],
+      socket: {},
+      room_id: '',
+      rooms: [],
       messages: [],
-      messagesLoaded: false
+      messagesLoaded: false,
+      admin: getAcountInfo()
     }
   },
-
-  methods: {
-    fetchMessages({ options = {}}) {
-      setTimeout(() => {
-        if (options.reset) {
-          this.messages = this.addMessages(true)
-        } else {
-          this.messages = [...this.addMessages(), ...this.messages]
-          this.messagesLoaded = true
-        }
-        // this.addNewMessage()
-      })
-    },
-
-    addMessages(reset) {
-      const messages = []
-
-      for (let i = 0; i < 30; i++) {
-        messages.push({
-          _id: reset ? i : this.messages.length + i,
-          content: `${reset ? '' : 'paginated'} message ${i + 1}`,
-          senderId: '4321',
-          username: 'John Doe',
-          date: '13 November',
-          timestamp: '10:20'
-        })
+  watch: {
+    room_id(current_room, old_room) {
+      if (isEmpty(old_room)) {
+        this.socket.emit('join', { room: current_room })
+      } else {
+        this.socket.emit('change_room', { room: current_room, old_room })
       }
-
-      return messages
-    },
-
-    sendMessage(message) {
+    }
+  },
+  created() {
+    this.socket = io(process.env.VUE_APP_BASE_SOCKET, { auth: { token: getToken() }})
+    messageResource.list_room().then((res) => {
+      this.rooms = res?.data?.list
+    })
+    this.socket.on('receive_message', (data) => {
       this.messages = [
         ...this.messages,
         {
           _id: this.messages.length,
-          content: message.content,
-          senderId: this.currentUserId,
-          timestamp: new Date().toString().substring(16, 21),
-          date: new Date().toDateString()
+          content: data.content,
+          senderId: '' + data.type,
+          type: 0,
+          timestamp: convertDateTime(data.created_at),
+          date: convertDate(data.created_at)
         }
       ]
+    })
+  },
+
+  methods: {
+    fetchMessages(value) {
+      if (isEmpty(value?.room?.roomId)) {
+        this.messages = []
+        this.messagesLoaded = true
+      } else {
+        this.room_id = value.room.roomId
+        messageResource.list_message({ room: value.room.roomId }).then((res) => {
+          this.messages = res?.data?.list.map(v => ({
+            ...v,
+            _id: v.id,
+            senderId: '' + v.type,
+            timestamp: convertDateTime(v.created_at),
+            date: convertDate(v.created_at)
+          }))
+        }).finally(() => { this.messagesLoaded = true })
+      }
     },
 
-    addNewMessage() {
-      setTimeout(() => {
-        this.messages = [
-          ...this.messages,
-          {
-            _id: this.messages.length,
-            content: 'NEW MESSAGE',
-            senderId: '1234',
-            timestamp: new Date().toString().substring(16, 21),
-            date: new Date().toDateString()
-          }
-        ]
-      }, 2000)
+    sendMessage(message) {
+      this.socket.emit('send_message', { content: message.content, sender_id: this.admin.id, room: this.room_id, type: 0 })
     }
+
   }
 }
 </script>

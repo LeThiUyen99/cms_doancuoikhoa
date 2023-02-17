@@ -59,7 +59,7 @@ export default {
           _id: this.messages.length,
           content: data.content,
           senderId: '' + data.type,
-          type: 0,
+          type: data.type,
           timestamp: convertDateTime(data.created_at),
           date: convertDate(data.created_at)
         }
@@ -91,7 +91,7 @@ export default {
     },
     getListRoom() {
       messageResource.list_room().then((res) => {
-        this.rooms = res?.data?.list
+        this.rooms = [...res?.data?.list]
       })
     },
     sendMessage(message) {

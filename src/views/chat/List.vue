@@ -46,6 +46,10 @@ export default {
   },
   watch: {
     room_id(current_room, old_room) {
+      this.query = {
+        page: 1,
+        limit: 30
+      }
       if (isEmpty(old_room)) {
         this.socket.emit('join', { room: current_room })
       } else {

@@ -37,7 +37,11 @@ export default {
       rooms: [],
       messages: [],
       messagesLoaded: false,
-      admin: getAcountInfo()
+      admin: getAcountInfo(),
+      query: {
+        page: 1,
+        limit: 30
+      }
     }
   },
   watch: {
@@ -47,6 +51,9 @@ export default {
       } else {
         this.socket.emit('change_room', { room: current_room, old_room })
       }
+    },
+    'query.page'() {
+      this.getListMessage()
     }
   },
   created() {
@@ -73,12 +80,9 @@ export default {
 
   methods: {
     fetchMessages(value) {
-      if (isEmpty(value?.room?.roomId)) {
-        this.messages = []
-        this.messagesLoaded = true
-      } else {
-        this.room_id = value.room.roomId
-        messageResource.list_message({ room: value.room.roomId }).then((res) => {
+      this.room_id = value.room.roomId
+      if (value.options) {
+        messageResource.list_message({ ...this.query, room: value.room.roomId }).then((res) => {
           this.messages = res?.data?.list.map(v => ({
             ...v,
             _id: v.id,
@@ -86,8 +90,27 @@ export default {
             timestamp: convertDateTime(v.created_at),
             date: convertDate(v.created_at)
           }))
-        }).finally(() => { this.messagesLoaded = true })
+
+          if (res.data.isLast) this.messagesLoaded = true
+          else this.messagesLoaded = false
+        })
+      } else {
+        this.query.page = this.query.page + 1
       }
+    },
+    getListMessage() {
+      messageResource.list_message({ ...this.query, room: this.room_id }).then((res) => {
+        this.messages = res?.data?.list.map(v => ({
+          ...v,
+          _id: v.id,
+          senderId: '' + v.type,
+          timestamp: convertDateTime(v.created_at),
+          date: convertDate(v.created_at)
+        })).concat(this.messages)
+
+        if (res.data.isLast) this.messagesLoaded = true
+        else this.messagesLoaded = false
+      })
     },
     getListRoom() {
       messageResource.list_room().then((res) => {

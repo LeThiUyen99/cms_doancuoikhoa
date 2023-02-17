@@ -47,6 +47,7 @@ const actions = {
           setToken(data.token)
           setAcountInfo(data.account)
           setUID(data.account.id)
+          window.location.reload()
           resolve()
         } else {
           console.log(error_msg)

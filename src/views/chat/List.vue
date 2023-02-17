@@ -51,9 +51,7 @@ export default {
   },
   created() {
     this.socket = io(process.env.VUE_APP_BASE_SOCKET, { auth: { token: getToken() }})
-    messageResource.list_room().then((res) => {
-      this.rooms = res?.data?.list
-    })
+    this.getListRoom()
     this.socket.on('receive_message', (data) => {
       this.messages = [
         ...this.messages,
@@ -66,6 +64,10 @@ export default {
           date: convertDate(data.created_at)
         }
       ]
+    })
+
+    this.socket.on('new_room', () => {
+      this.getListRoom()
     })
   },
 
@@ -87,7 +89,11 @@ export default {
         }).finally(() => { this.messagesLoaded = true })
       }
     },
-
+    getListRoom() {
+      messageResource.list_room().then((res) => {
+        this.rooms = res?.data?.list
+      })
+    },
     sendMessage(message) {
       this.socket.emit('send_message', { content: message.content, sender_id: this.admin.id, room: this.room_id, type: 0 })
     }

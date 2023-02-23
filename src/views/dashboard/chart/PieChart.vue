@@ -35,9 +35,9 @@ export default {
         },
         labels: [],
         legend: {
-          position: 'right',
-          horizontalAlign: 'right',
-          textAnchor: 'right',
+          position: 'bottom',
+          horizontalAlign: 'bottom',
+          textAnchor: 'bottom',
           floating: false,
           inverseOrder: false,
           offsetX: 0,

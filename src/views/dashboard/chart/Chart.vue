@@ -1,21 +1,34 @@
 <template>
   <div v-if="series.length" class="column-chart">
     <h3 align="left" style="padding-left: 20px">{{ $t('chart_column') }} <span>{{ screenName || "" }}</span></h3>
-    <apexchart
-      ref="myChart"
-      type="bar"
-      height="500"
-      :options="chartOptions"
-      :series="series"
-    />
+    <el-row>
+      <el-col :sm="16">
+        <apexchart
+          ref="myChart"
+          type="bar"
+          height="500"
+          :options="chartOptions"
+          :series="series"
+          @click="handleClick"
+        />
+      </el-col>
+      <el-col :sm="8">
+        <el-row v-if="show_chart">
+          <date-chart :date-chart="charts" />
+        </el-row>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
 import VueApexCharts from 'vue-apexcharts'
+import DateChart from '@/views/dashboard/chart/DateChart'
+import AdminResource from '@/api/admin'
+const adminRescource = new AdminResource()
 export default {
   name: 'Chart',
-  components: { apexchart: VueApexCharts },
+  components: { apexchart: VueApexCharts, DateChart },
   props: {
     chart_data: {
       type: Array,
@@ -32,6 +45,8 @@ export default {
   },
   data() {
     return {
+      charts: [],
+      show_chart: false,
       series: [],
       chartOptions: {
         chart: {
@@ -78,6 +93,27 @@ export default {
     }
   },
   methods: {
+    handleClick(event, chartContext, config) {
+      // console.log(config.dataPointIndex, +this.chartOptions?.xaxis?.categories[config.dataPointIndex].replace('tháng ', ''), 'chartOptions')
+      this.show_chart = true
+      const chart_date = +this.chartOptions?.xaxis?.categories[config.dataPointIndex].replace('tháng ', '')
+      this.requestDateChartList(chart_date)
+    },
+    requestDateChartList(date) {
+      console.log(date)
+      const query = {
+        month: date,
+        year: new Date().getFullYear()
+      }
+      // console.log(query)
+      adminRescource.dateChart(query).then(res => {
+        const { error_code, data } = res
+        if (error_code === 0) {
+          this.charts = data
+          // console.log(this.charts, 'chats')
+        }
+      })
+    },
     fillDataBarChart(data) {
       // console.log('.................data ', JSON.stringify(data))
       // this.chartOptions1.xaxis.categories = data.map(d => d.user_name)

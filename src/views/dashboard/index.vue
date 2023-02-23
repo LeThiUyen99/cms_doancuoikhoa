@@ -51,11 +51,11 @@
           </div>
           <div class="chart-container">
             <el-row>
-              <el-col :span="12"><div class="grid-content bg-purple">
+              <el-col :span="24"><div class="grid-content bg-purple">
                 <chart :chart_data="chart_data" :screen-name="screenName" />
               </div>
               </el-col>
-              <el-col :span="12"><div class="grid-content bg-purple-light">
+              <el-col :span="24"><div class="grid-content bg-purple-light">
                 <pie-chart :chart_data="pie_data" :screen-name="screenName" />
               </div>
               </el-col>

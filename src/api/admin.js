@@ -66,6 +66,13 @@ class AdminResource extends Resource {
       params: query
     })
   }
+  dateChart(query) {
+    return request({
+      url: `chart/date_chart?${this.getVerify()}`,
+      method: 'get',
+      params: query
+    })
+  }
 }
 
 export { AdminResource as default }

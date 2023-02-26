@@ -1,5 +1,5 @@
 <template>
-  <el-row class="dashboard-container">
+  <el-row v-if="show_page" class="dashboard-container">
     <el-row :gutter="20">
       <el-col :span="22" :offset="1">
         <div class="grid-content bg-purple">
@@ -68,6 +68,7 @@
 </template>
 
 <script>
+import { getAcountInfo } from '@/utils/auth'
 import { formatNumber } from '@/utils/convert'
 import cash_icon from '@/assets/images/cash-icon.svg'
 import cart from '@/assets/images/orders.svg'
@@ -90,13 +91,23 @@ export default {
       income: 0,
       count: 0,
       success: 0,
-      cancel: 0
+      cancel: 0,
+      show_page: false
     }
   },
   created() {
     this.requestChartList()
+    this.showPage()
   },
   methods: {
+    showPage() {
+      const account = getAcountInfo()
+      if (account.role === 0) {
+        this.show_page = true
+      } else {
+        this.show_page = false
+      }
+    },
     requestChartList() {
       adminRescource.chartList().then(res => {
         const { error_code, data } = res

@@ -84,11 +84,7 @@ export default {
     }
   },
   watch: {
-    // NameScreen(value) {
-    //   this.fillDataBarChart(value)
-    // },
     chart_data(value) {
-      // console.log('..................du lieu bieu do ', JSON.stringify(value))
       this.fillDataBarChart(value)
     }
   },
@@ -105,12 +101,10 @@ export default {
         month: date,
         year: new Date().getFullYear()
       }
-      // console.log(query)
       adminRescource.dateChart(query).then(res => {
         const { error_code, data } = res
         if (error_code === 0) {
           this.charts = data
-          // console.log(this.charts, 'chats')
         }
       })
     },
@@ -125,7 +119,7 @@ export default {
       //   data: [d.view_number]
       // }))
 
-      console.log(this.series, this.chartOptions)
+      // console.log(this.series, this.chartOptions)
     },
     intToRGB(value) {
       // credit to https://stackoverflow.com/a/2262117/2737978 for the idea of how to implement

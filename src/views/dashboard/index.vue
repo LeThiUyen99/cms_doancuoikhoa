@@ -56,7 +56,7 @@
               </div>
               </el-col>
               <el-col :span="24"><div class="grid-content bg-purple-light">
-                <pie-chart :chart_data="pie_data" :screen-name="screenName" />
+                <!--                <pie-chart :chart_data="pie_data" :screen-name="screenName" />-->
               </div>
               </el-col>
             </el-row>
@@ -74,12 +74,12 @@ import cash_icon from '@/assets/images/cash-icon.svg'
 import cart from '@/assets/images/orders.svg'
 import return_svg from '@/assets/images/return-svg.svg'
 import Chart from '@/views/dashboard/chart/Chart'
-import pieChart from '@/views/dashboard/chart/PieChart'
+// import pieChart from '@/views/dashboard/chart/PieChart'
 import AdminResource from '@/api/admin'
 const adminRescource = new AdminResource()
 export default {
   name: 'Dashboard',
-  components: { Chart, pieChart },
+  components: { Chart },
   data() {
     return {
       chart_data: [],

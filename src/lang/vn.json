@@ -604,5 +604,6 @@
   "book_tour": "Tour đã đặt",
   "cancel_tour": "Hủy tour",
   "total_cancel_tour": "Tổng số tour hủy",
-  "total_success_tour": "Tổng tour đặt thành công"
+  "total_success_tour": "Tổng tour đặt thành công",
+  "chart_pie_month": "Biểu đồ doanh thu từng ngày trong tháng"
 }

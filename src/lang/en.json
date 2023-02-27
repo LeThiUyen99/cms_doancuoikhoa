@@ -595,5 +595,6 @@
   "book_tour": "booked tour",
   "cancel_tour": "Tour cancellation",
   "total_cancel_tour": "Total tour cancellations",
-  "total_success_tour": "Total tour booked successfully"
+  "total_success_tour": "Total tour booked successfully",
+  "chart_pie_month": "Revenues chart for each day of the month"
 }

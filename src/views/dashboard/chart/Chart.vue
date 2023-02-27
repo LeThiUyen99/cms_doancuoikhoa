@@ -1,16 +1,20 @@
 <template>
-  <div v-if="series.length" class="column-chart">
+  <div class="column-chart">
     <h3 align="left" style="padding-left: 20px">{{ $t('chart_column') }} <span>{{ screenName || "" }}</span></h3>
     <el-row>
       <el-col :sm="16">
-        <apexchart
-          ref="myChart"
-          type="bar"
-          height="500"
-          :options="chartOptions"
-          :series="series"
-          @click="handleClick"
+        <Bar
+          :chart-options="chartOptions"
+          :chart-data="chartData"
+          :chart-id="chartId"
+          :dataset-id-key="datasetIdKey"
+          :plugins="plugins"
+          :css-classes="cssClasses"
+          :styles="styles"
+          :width="width"
+          :height="height"
         />
+        <!--        @click="handleClick"-->
       </el-col>
       <el-col :sm="8">
         <el-row v-if="show_chart">
@@ -22,13 +26,31 @@
 </template>
 
 <script>
-import VueApexCharts from 'vue-apexcharts'
+// import VueApexCharts from 'vue-apexcharts'
+import { Bar } from 'vue-chartjs/legacy'
+import {
+  Chart as ChartJS,
+  Title,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale
+} from 'chart.js'
 import DateChart from '@/views/dashboard/chart/DateChart'
 import AdminResource from '@/api/admin'
 const adminRescource = new AdminResource()
+ChartJS.register(
+  Title,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale
+)
 export default {
   name: 'Chart',
-  components: { apexchart: VueApexCharts, DateChart },
+  components: { DateChart, Bar },
   props: {
     chart_data: {
       type: Array,
@@ -41,44 +63,61 @@ export default {
       default() {
         return ''
       }
+    },
+    chartId: {
+      type: String,
+      default: 'bar-chart'
+    },
+    datasetIdKey: {
+      type: String,
+      default: 'label'
+    },
+    width: {
+      type: Number,
+      default: 400
+    },
+    height: {
+      type: Number,
+      default: 400
+    },
+    cssClasses: {
+      default: '',
+      type: String
+    },
+    styles: {
+      type: Object,
+      default: () => {}
+    },
+    plugins: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
     return {
       charts: [],
       show_chart: false,
-      series: [],
-      chartOptions: {
-        chart: {
-          type: 'bar',
-          height: 1000
-        },
-        legend: {
-          show: false
-        },
-        plotOptions: {
-          bar: {
-            horizontal: false,
-            columnWidth: '100%',
-            endingShape: 'rounded'
+      chartData: {
+        labels: [],
+        datasets: [
+          {
+            label: 'Data One',
+            backgroundColor: '#f87979',
+            data: []
           }
-        },
-        dataLabels: {
-          enabled: false
-        },
-        stroke: {
-          show: true,
-          width: 10,
-          colors: ['transparent']
-        },
-        xaxis: {
-          categories: []
-        },
-        fill: {
-          opacity: 1
-        },
-        tooltip: {
-          enabled: true
+        ]
+      },
+      chartOptions: {
+        responsive: true,
+        maintainAspectRatio: false,
+        onClick: (event, args) => {
+          // console.log(event, args)
+          this.show_chart = true
+          console.log(this.chartData)
+          const chart_date = this.chartData?.labels[args[0].index].replace('tháng ', '')
+          console.log(chart_date, 'gfdvh')
+          this.requestDateChartList(chart_date)
+          // need to access my_data here
         }
       }
     }
@@ -91,6 +130,8 @@ export default {
   methods: {
     handleClick(event, chartContext, config) {
       // console.log(config.dataPointIndex, +this.chartOptions?.xaxis?.categories[config.dataPointIndex].replace('tháng ', ''), 'chartOptions')
+      // console.log(event, chartContext, config)
+      // console.log(event, chartContext, config)
       this.show_chart = true
       const chart_date = +this.chartOptions?.xaxis?.categories[config.dataPointIndex].replace('tháng ', '')
       this.requestDateChartList(chart_date)
@@ -111,9 +152,11 @@ export default {
     fillDataBarChart(data) {
       // console.log('.................data ', JSON.stringify(data))
       // this.chartOptions1.xaxis.categories = data.map(d => d.user_name)
-      this.chartOptions = { ...this.chartOptions, xaxis: { categories: data.map(d => d.month) }}
+      // this.chartData = { ...this.chartData, xaxis: { categories: data.map(d => d.month) }}
+
+      this.chartData = { ...this.chartData, labels: data.map(d => d.month), datasets: [{ ...this.chartData.datasets[0], data: data.map(({ money }) => money || 0) }] }
       // this.series = [{ name: '', data: data.map(({ view_number }) => view_number || 0) }]
-      this.series = [{ name: '', data: data.map(({ money }) => money || 0) }]
+      // this.series = [{ name: '', data: data.map(({ money }) => money || 0) }]
       // this.series = data.map(d => ({
       //   name: d.name,
       //   data: [d.view_number]

@@ -1,6 +1,6 @@
 <template>
   <div class="pie-chart">
-    <h3 align="left" style="padding-left: 20px">{{ $t('chart_pie') }}</h3>
+    <h3 align="left" style="padding-left: 20px">{{ $t('chart_pie_month') }}</h3>
     <apexchart type="pie" width="70%" :options="chartData" :series="months" />
   </div>
 </template>

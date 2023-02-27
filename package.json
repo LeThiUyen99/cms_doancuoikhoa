@@ -17,7 +17,6 @@
   "dependencies": {
     "apexcharts": "^3.27.1",
     "axios": "0.18.1",
-    "chart.js": "^2.9.4",
     "clipboard": "2.0.4",
     "codemirror": "5.45.0",
     "core-js": "3.6.5",
@@ -47,7 +46,6 @@
     "vue-apexcharts": "^1.6.1",
     "vue-avatar-cropper": "^3.0.0",
     "vue-chart.js": "^0.2.0",
-    "vue-chartjs": "^3.5.1",
     "vue-count-to": "1.0.13",
     "vue-i18n": "^8.26.8",
     "vue-image-crop-upload": "^3.0.3",
@@ -56,7 +54,9 @@
     "vue-splitpane": "1.0.4",
     "vuedraggable": "2.20.0",
     "vuex": "3.1.0",
-    "xlsx": "0.14.1"
+    "xlsx": "0.14.1",
+    "chart.js": "^3.8.0",
+    "vue-chartjs": "^4.0.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "4.4.4",

@@ -41,7 +41,7 @@ export default {
   methods: {
     fillDatDateChart(data) {
       // console.log(data)
-      this.chartData = { ...this.chartData, ...{ labels: data.map(d => d.date) }}
+      this.chartData = { ...this.chartData, ...{ labels: data.map(d => `Ngày ${d.date}`) }}
       this.months = data.map(d => parseInt(d.money))
     }
   }

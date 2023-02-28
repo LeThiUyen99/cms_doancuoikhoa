@@ -101,7 +101,7 @@ export default {
         labels: [],
         datasets: [
           {
-            label: 'Data One',
+            label: '',
             backgroundColor: '#f87979',
             data: []
           }

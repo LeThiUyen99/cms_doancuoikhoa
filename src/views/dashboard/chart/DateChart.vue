@@ -29,15 +29,7 @@ export default {
         labels: [],
         legend: {
           display: false
-        },
-        responsive: [{
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200
-            }
-          }
-        }]
+        }
       }
     }
   },

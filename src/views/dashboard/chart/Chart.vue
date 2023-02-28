@@ -95,7 +95,7 @@ export default {
   },
   data() {
     return {
-      charts: [],
+      charts: {},
       show_chart: false,
       chartData: {
         labels: [],
@@ -113,10 +113,11 @@ export default {
         onClick: (event, args) => {
           // console.log(event, args)
           this.show_chart = true
-          console.log(this.chartData)
+          // console.log(this.chartData)
+          // console.log(this.chartData?.labels)
           const chart_date = this.chartData?.labels[args[0].index].replace('tháng ', '')
-          console.log(chart_date, 'gfdvh')
-          this.requestDateChartList(chart_date)
+          // console.log(chart_date, args[0].index, 'gfdvh')
+          this.requestDateChartList(+chart_date)
           // need to access my_data here
         }
       }
@@ -128,22 +129,23 @@ export default {
     }
   },
   methods: {
-    handleClick(event, chartContext, config) {
-      // console.log(config.dataPointIndex, +this.chartOptions?.xaxis?.categories[config.dataPointIndex].replace('tháng ', ''), 'chartOptions')
-      // console.log(event, chartContext, config)
-      // console.log(event, chartContext, config)
-      this.show_chart = true
-      const chart_date = +this.chartOptions?.xaxis?.categories[config.dataPointIndex].replace('tháng ', '')
-      this.requestDateChartList(chart_date)
-    },
+    // handleClick(event, chartContext, config) {
+    //   // console.log(config.dataPointIndex, +this.chartOptions?.xaxis?.categories[config.dataPointIndex].replace('tháng ', ''), 'chartOptions')
+    //   // console.log(event, chartContext, config)
+    //   // console.log(event, chartContext, config)
+    //   this.show_chart = true
+    //   const chart_date = +this.chartOptions?.xaxis?.categories[config.dataPointIndex].replace('tháng ', '')
+    //   this.requestDateChartList(chart_date)
+    // },
     requestDateChartList(date) {
-      console.log(date)
       const query = {
         month: date,
         year: new Date().getFullYear()
       }
       adminRescource.dateChart(query).then(res => {
         const { error_code, data } = res
+
+        // console.log(data)
         if (error_code === 0) {
           this.charts = data
         }

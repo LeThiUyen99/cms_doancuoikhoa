@@ -605,5 +605,8 @@
   "cancel_tour": "Hủy tour",
   "total_cancel_tour": "Tổng số tour hủy",
   "total_success_tour": "Tổng tour đặt thành công",
-  "chart_pie_month": "Biểu đồ doanh thu từng ngày trong tháng"
+  "chart_pie_month": "Biểu đồ doanh thu từng ngày trong tháng",
+  "manage_chat": "Hỗ trợ khách hàng",
+  "vali_name_tour": "Vui lòng nhập tên",
+  "vali_start_date": "Vui lòng nhập ngày bắt đầu"
 }

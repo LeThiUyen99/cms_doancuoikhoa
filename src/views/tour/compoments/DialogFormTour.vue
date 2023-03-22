@@ -11,10 +11,10 @@
       <el-row>
         <el-col :span="12" style="padding-right: 10px">
           <div class="grid-content bg-purple">
-            <el-form-item :label="$t('price')" prop="name">
+            <el-form-item :label="$t('price')" prop="price">
               <el-input v-model="objectData.price" :placeholder="$t('price')" />
             </el-form-item>
-            <el-form-item class="start-from" :label="$t('from_start')" prop="name">
+            <el-form-item class="start-from" :label="$t('from_start')" prop="start_date">
               <el-date-picker
                 v-model="objectData.start_date"
                 type="datetime"
@@ -23,8 +23,8 @@
                 :picker-options="datePickerOptions1"
               />
             </el-form-item>
-            <el-form-item :label="$t('country')" prop="name">
-              <el-select v-model="countryId" class="w-100" filterable remote :multiple-limit="1" :placeholder="$t('category')">
+            <el-form-item :label="$t('country')">
+              <el-select v-model="countryId" class="w-100" filterable remote :multiple-limit="1" :placeholder="$t('country')">
                 <el-option
                   v-for="country in countries"
                   :key="country.id"
@@ -33,7 +33,7 @@
                 />
               </el-select>
             </el-form-item>
-            <el-form-item :label="$t('category')" prop="name">
+            <el-form-item :label="$t('category')" prop="category_id">
               <el-select v-model="objectData.category_id" class="w-100" filterable remote :multiple-limit="1" :placeholder="$t('category')">
                 <el-option
                   v-for="cate in categories"
@@ -43,9 +43,6 @@
                 />
               </el-select>
             </el-form-item>
-            <el-form-item :label="$t('quantily')" prop="name">
-              <el-input v-model="objectData.quantity" :placeholder="$t('quantily')" />
-            </el-form-item>
           </div>
         </el-col>
         <el-col :span="12">
@@ -53,10 +50,13 @@
             <!--            <el-form-item :label="$t('slug')" prop="name">-->
             <!--              <el-input v-model="objectData.slug" :placeholder="$t('slug')" />-->
             <!--            </el-form-item>-->
-            <el-form-item :label="$t('currency_unit')" prop="name">
+            <!-- <el-form-item :label="$t('currency_unit')" prop="name">
               <el-input v-model="objectData.currency" :placeholder="$t('currency_unit')" />
+            </el-form-item> -->
+            <el-form-item :label="$t('quantily')" prop="quantity">
+              <el-input v-model="objectData.quantity" :placeholder="$t('quantily')" />
             </el-form-item>
-            <el-form-item class="time-end" :label="$t('time_end')" prop="name">
+            <el-form-item class="time-end" :label="$t('time_end')" prop="expire_date">
               <el-date-picker
                 v-model="objectData.expire_date"
                 type="datetime"
@@ -66,7 +66,7 @@
                 :picker-options="datePickerOptions"
               />
             </el-form-item>
-            <el-form-item :label="$t('city')" prop="name">
+            <!-- <el-form-item :label="$t('city')" prop="name">
               <el-select v-model="objectData.city_id" class="w-100" filterable remote :multiple-limit="1" :placeholder="$t('city')">
                 <el-option
                   v-for="city in citis"
@@ -75,23 +75,23 @@
                   :value="city.id"
                 />
               </el-select>
-            </el-form-item>
-            <el-form-item :label="$t('time')" prop="name">
+            </el-form-item> -->
+            <el-form-item :label="$t('time')" prop="time">
               <el-input v-model="objectData.time" :placeholder="$t('time')" />
             </el-form-item>
-            <el-form-item :label="$t('guest_number')" prop="name">
+            <el-form-item :label="$t('guest_number')" prop="guest_number">
               <el-input v-model="objectData.guest_number" :placeholder="$t('guest_number')" />
             </el-form-item>
           </div>
         </el-col>
       </el-row>
-      <el-form-item :label="$t('desc')" prop="name">
+      <el-form-item :label="$t('desc')">
         <el-input v-model="objectData.description" type="textarea" :rows="3" :placeholder="$t('desc')" />
       </el-form-item>
       <el-row>
         <el-col :span="12">
           <div class="grid-content bg-purple">
-            <el-form-item :label="$t('avatar')" prop="images">
+            <el-form-item :label="$t('avatar')">
               <div class="clearfix" />
               <upload-image v-model="objectData.images" :url-current="objectData.images" @onSetUrlImage="handleSetImageTour" />
             </el-form-item>
@@ -153,7 +153,28 @@ export default {
       dialog: { titleName: i18n.t('add_tour'), buttonName: i18n.t('add') },
       rules: {
         name: [
-          { required: true, message: i18n.t('vali_acc_name'), trigger: 'blur' }
+          { required: true, message: i18n.t('vali_name_tour'), trigger: 'blur' }
+        ],
+        price: [
+          { required: true, message: i18n.t('valid_price'), trigger: 'blur' }
+        ],
+        start_date: [
+          { required: true, message: i18n.t('vali_start_date'), trigger: 'blur' }
+        ],
+        category_id: [
+          { required: true, message: i18n.t('input_name_category'), trigger: 'blur' }
+        ],
+        quantity: [
+          { required: true, message: i18n.t('inpur_quantily'), trigger: 'blur' }
+        ],
+        expire_date: [
+          { required: true, message: i18n.t('vali_price_tour'), trigger: 'blur' }
+        ],
+        time: [
+          { required: true, message: i18n.t('vali_price_tour'), trigger: 'blur' }
+        ],
+        guest_number: [
+          { required: true, message: i18n.t('vali_price_tour'), trigger: 'blur' }
         ]
       },
       defaultTime: '23:59:00',
@@ -259,9 +280,9 @@ export default {
         id: this.objectData.id,
         name: this.objectData.name,
         category_id: this.objectData.category_id,
-        city_id: this.objectData.city_id,
+        // city_id: this.objectData.city_id,
         country_id: this.objectData.country_id,
-        currency: this.objectData.currency,
+        // currency: this.objectData.currency,
         expire_date: this.objectData.expire_date,
         start_date: this.objectData.start_date,
         guest_number: this.objectData.guest_number,

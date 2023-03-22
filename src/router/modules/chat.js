@@ -8,7 +8,7 @@ const chatRouter = {
   name: 'Chat',
   meta: {
     title: 'manage_chat',
-    icon: 'chat',
+    icon: 'el-icon-chat-dot-square',
     isShow: [1]
   },
   roles: ['Chat'],

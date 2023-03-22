@@ -12,7 +12,7 @@ import itinerariesTourRouter from '@/router/modules/itineraries_tour'
 import blogRouter from '@/router/modules/blog'
 import bookTourRouter from '@/router/modules/book_tour'
 import commentRouter from '@/router/modules/comment'
-import tagRouter from '@/router/modules/tag'
+// import tagRouter from '@/router/modules/tag'
 import permissionRouter from '@/router/modules/permission'
 import userRouter from '@/router/modules/user'
 import chatRouter from '@/router/modules/chat'
@@ -129,7 +129,7 @@ export const asyncRoutes = [
   blogRouter,
   bookTourRouter,
   commentRouter,
-  tagRouter,
+  // tagRouter,
   userRouter,
   chatRouter,
   // 404 page must be placed at the end !!!

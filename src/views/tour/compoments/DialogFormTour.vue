@@ -8,11 +8,14 @@
       <el-form-item :label="$t('name_tour')" prop="name">
         <el-input v-model="objectData.name" :placeholder="$t('name_tour')" />
       </el-form-item>
+      <el-form-item :label="$t('price')" prop="price">
+        <el-input v-model="objectData.price" :placeholder="$t('price')" />
+      </el-form-item>
       <el-row>
         <el-col :span="12" style="padding-right: 10px">
           <div class="grid-content bg-purple">
-            <el-form-item :label="$t('price')" prop="price">
-              <el-input v-model="objectData.price" :placeholder="$t('price')" />
+            <el-form-item :label="$t('currency_unit')" prop="name">
+              <el-input v-model="objectData.currency" :placeholder="$t('currency_unit')" />
             </el-form-item>
             <el-form-item class="start-from" :label="$t('from_start')" prop="start_date">
               <el-date-picker
@@ -282,7 +285,7 @@ export default {
         category_id: this.objectData.category_id,
         // city_id: this.objectData.city_id,
         country_id: this.objectData.country_id,
-        // currency: this.objectData.currency,
+        currency: this.objectData.currency,
         expire_date: this.objectData.expire_date,
         start_date: this.objectData.start_date,
         guest_number: this.objectData.guest_number,

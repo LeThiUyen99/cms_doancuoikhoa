@@ -143,7 +143,7 @@ const tourResource = new TourResource()
 const categoryResource = new CategoryResource()
 const defaultQuery = {
   page: 1,
-  limit: 10
+  limit: 5
 }
 export default {
   name: 'List',
@@ -277,7 +277,7 @@ export default {
         const { list, totalPage } = data
         if (error_code === 0) {
           this.tableData = list
-          this.total = totalPage
+          this.total = this.listQuery.page === 1 ? totalPage : this.total
         }
       })
     },

@@ -5,7 +5,7 @@
         <h3>{{ $t('manage_book_tour') }}</h3>
       </el-col>
       <el-col :sm="12" align="right">
-        <el-button type="primary" @click="addBookTour">{{ $t('add') }}</el-button>
+        <!-- <el-button type="primary" @click="addBookTour">{{ $t('add') }}</el-button> -->
       </el-col>
     </el-row>
     <el-row class="list-book-tour__data">
@@ -16,9 +16,15 @@
         <el-table-column :label="$t('name_tour')" align="center" prop="name">
           <template slot-scope="scope">{{ scope.row.tour? scope.row.tour.name: '' }}</template>
         </el-table-column>
-        <el-table-column :label="$t('full_name')" align="center" prop="customer_name" />
-        <el-table-column :label="$t('phone')" align="center" prop="customer_phone" />
-        <el-table-column :label="$t('email')" align="center" header-align="center" prop="customer_email" />
+        <el-table-column :label="$t('full_name')" align="center" prop="customer_name">
+          <template slot-scope="scope">{{ scope.row.customer_name? scope.row.customer_name : (scope.row.user? scope.row.user.name: '') }}</template>
+        </el-table-column>
+        <el-table-column :label="$t('phone')" align="center" prop="customer_phone">
+          <template slot-scope="scope">{{ scope.row.customer_phone? scope.row.customer_phone : (scope.row.user? scope.row.user.phone: '') }}</template>
+        </el-table-column>
+        <el-table-column :label="$t('email')" align="center" header-align="center" prop="customer_email">
+          <template slot-scope="scope">{{ scope.row.customer_email? scope.row.customer_email : (scope.row.user? scope.row.user.email: '') }}</template>
+        </el-table-column>
         <el-table-column :label="$t('price')" align="center" header-align="center" prop="price" />
         <el-table-column :label="$t('time')" align="center" header-align="center" prop="time">
           <template slot-scope="scope">{{ `${convertDateTime(scope.row.start_date)} - ${convertDateTime(scope.row.end_date)}` }}</template>
@@ -172,9 +178,10 @@ export default {
       bookTourResource.bookTourList(this.listQuery).then(res => {
         this.loadingTable = false
         const { error_code, data } = res
+        console.log(data)
         if (error_code === 0) {
           this.tableData = data.data
-          this.total = this.listQuery.page === 1 ? data.totalPage : this.total
+          this.total = this.listQuery.page === 1 ? data.count : this.total
           this.BtnConfirm(this.tableData)
         }
       })

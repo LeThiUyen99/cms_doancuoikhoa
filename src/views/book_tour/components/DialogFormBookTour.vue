@@ -26,7 +26,7 @@
           :placeholder="$t('from_start')"
         />
       </el-form-item>
-      <el-form-item class="time-end" :label="$t('time_end')" prop="name">
+      <!-- <el-form-item class="time-end" :label="$t('time_end')" prop="name">
         <el-date-picker
           v-model="body.end_date"
           type="datetime"
@@ -34,7 +34,7 @@
           :default-time="defaultTime"
           :placeholder="$t('time_end')"
         />
-      </el-form-item>
+      </el-form-item> -->
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="handleClose">{{ $t('canel') }}</el-button>
@@ -71,7 +71,7 @@ export default {
     return {
       body: {},
       loadingSubmit: false,
-      dialog: { titleName: i18n.t('add_book_tour'), buttonName: i18n.t('add') },
+      dialog: { titleName: i18n.t('update_book_tour'), buttonName: i18n.t('update') },
       tours: [],
       defaultTime: '23:59:00'
     }
@@ -125,7 +125,6 @@ export default {
       const body = {}
       const keys = Object.keys(this.objectData)
       this.body.start_date = new Date(this.body.start_date).getTime()
-      this.body.end_date = new Date(this.body.end_date).getTime()
       for (const key of keys) {
         if (this.body[key] !== this.objectData[key]) {
           body[key] = this.body[key]
